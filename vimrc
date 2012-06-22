@@ -10,27 +10,15 @@
 " - Bee
 " - amix@amix.dk (amix the lucky stiff)
 "   amix.dk/vim/vimrc.html
+" - michaeljsmalley - https://github.com/michaeljsmalley
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 1. General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Disable Vi compatibility
 set nocompatible
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General options
-""
-" Turn file type detection on
-filetype plugin on
-filetype plugin indent on
-
-" Turn syntax highlighting on
-syntax on
-
-" Setup status line
-set statusline=%<%f\ %y%h%m%r%=%-24(0x%02B\(%03b\)\ \L\:%l/%L\ %c%V%)\ %P
-set laststatus=2
-
-" Add modeline functionality
-set modeline
 
 " Activate autowrite
 set autowrite
@@ -38,15 +26,6 @@ set autowrite
 " Directories for backup and swap
 set backupdir=/tmp
 set directory=/tmp
-
-" Ignore case when searching
-set ignorecase
-" except for searches that contain upper case characters
-set smartcase
-
-" Highlight search things
-set hlsearch
-set incsearch
 
 " More tabs
 set tabpagemax=20
@@ -69,60 +48,24 @@ set tm=500
 set mouse=a
 
 set hidden
-""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Command line options
-""
 " Activate enhanced command completion
 set wildmenu
 
 " Set command line history
 set history=50
 set showcmd
-""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Editing mode options
-""
-set encoding=utf-8
-
-set textwidth=72
-set backspace=2
-
-" Set tab and indent width
-set tabstop=4
-set shiftwidth=4
-" Expand tabs to spaces
-set expandtab
-
-" Open new vertical splits to the right of current one.
-set splitright
-
-set showmatch
-set mat=2
-
-" Mark tabs and spaces
-set list listchars=tab:»\ ,trail:·,extends:»,precedes:«
-" if above doesn't work, make sure vim was compiled with
-" --enable-multibyte. vim --version should show you +multi_byte
-""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Function definitions
-""
-function VarExists(var, val)
-  if exists(a:var) | return a:val | else | return '' | endif
-endfunction
-""
+" 2. Events
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Auto Commands
-""
+" Turn file type detection on
+filetype plugin on
+filetype plugin indent on
+
 " Trim trailing whitespaces on save
 " set up filter for files that we don't want trimming on
 autocmd FileType vim let b:noTrimm = 1
@@ -140,15 +83,106 @@ autocmd BufReadPost *
 
 autocmd FileType text setlocal textwidth=78
 
-" we don't want tabs to expand to spaces for makefiles
+" we don't want tabs to expand to spaces for makefiles of haskell files
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal noexpandtab
-""
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ViM Mappings
-""
+" 3. Theme/Colors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Turn syntax highlighting on
+syntax enable
+
+" Enable 256-color mode
+set t_Co=256
+colorscheme molokai
+
+" Highlight characters that go over 80 columns
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 4. ViM UI
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Setup status line
+set statusline=%<%f\ %y%h%m%r%=%-24(0x%02B\(%03b\)\ \L\:%l/%L\ %c%V%)\ %P
+set laststatus=2 " last windows always has a statusline
+
+" always show info along bottom
+set ruler
+
+" Ignore case when searching
+set ignorecase
+" except for searches that contain upper case characters
+set smartcase
+
+" Highlight while typing
+set incsearch
+" don't continue to highlight searched phrases after
+set nohlsearch
+
+set showmatch
+set mat=2
+
+" Highlight current line
+set cul
+
+" Show line numbers
+set number
+
+" Open new vertical splits to the right of current one.
+set splitright
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 5. Text Formatting/Layout
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Activate auto-indent
+set autoindent
+
+" Set tab and indent width
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+" Expand tabs to spaces
+set expandtab
+
+set encoding=utf-8
+
+set backspace=2
+
+set nowrap
+
+" Mark tabs and spaces
+set list listchars=tab:»\ ,trail:·,extends:»,precedes:«
+
+" Add modeline functionality
+set modeline
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 6. Function definitions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function VarExists(var, val)
+  if exists(a:var) | return a:val | else | return '' | endif
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 7. ViM Mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Mapping from usenet
 imap jj <Esc>
 

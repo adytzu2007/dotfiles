@@ -1,0 +1,44 @@
+[global_config]
+  window_state = maximise
+  tab_position = bottom
+[keybindings]
+[profiles]
+  [[default]]
+    use_system_font = False
+    background_darkness = 0.94
+    background_type = transparent
+    scroll_on_output = False
+    cursor_shape = ibeam
+    font = Monospace 8
+    scrollback_infinite = True
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[horizontalsplit]]]
+      type = HPaned
+      parent = window0
+    [[[verticalsplit0]]]
+      type = VPaned
+      parent = horizontalsplit
+    [[[verticalsplit1]]]
+      type = VPaned
+      parent = horizontalsplit
+    [[[terminal0]]]
+      type = Terminal
+      parent = verticalsplit0
+      profile = default
+    [[[terminal1]]]
+      type = Terminal
+      parent = verticalsplit1
+      profile = default
+    [[[terminal2]]]
+      type = Terminal
+      parent = verticalsplit0
+      profile = default
+    [[[terminal3]]]
+      type = Terminal
+      parent = verticalsplit1
+      profile = default
+[plugins]
