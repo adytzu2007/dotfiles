@@ -16,6 +16,8 @@ declare -A SYMBOLIC_LINKS
 SYMBOLIC_LINKS=(["vim"]="$HOME/.vim")
 SYMBOLIC_LINKS+=(["vimrc"]="$HOME/.vimrc")
 SYMBOLIC_LINKS+=(["terminator"]="$HOME/.config/terminator/config")
+SYMBOLIC_LINKS+=(["oh-my-zsh"]="$HOME/.oh-my-zsh")
+SYMBOLIC_LINKS+=(["zshrc"]="$HOME/.zshrc")
 
 # make symbolic links in $HOME
 for link in "${!SYMBOLIC_LINKS[@]}"; do
