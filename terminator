@@ -9,7 +9,7 @@
     background_type = transparent
     scroll_on_output = False
     cursor_shape = ibeam
-    font = Monospace 8
+    font = Monospace 9
     scrollback_infinite = True
 [layouts]
   [[default]]
