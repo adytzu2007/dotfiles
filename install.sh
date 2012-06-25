@@ -11,7 +11,7 @@ set -x # comment to disable debug
 
 # oh-my-zsh
 # clone oh-my-zsh git repo
-git clone git://github.com/robbyrussell/oh-my-zsh.git
+git clone git@github.com:robbyrussell/oh-my-zsh.git
 apt-get install zsh
 
 # change default shell
