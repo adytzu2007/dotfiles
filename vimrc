@@ -98,7 +98,7 @@ syntax enable
 
 " Enable 256-color mode
 set t_Co=256
-colorscheme eclipse
+colorscheme molokai
 
 " Highlight characters that go over 80 columns
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
