@@ -1,5 +1,10 @@
 # Explicitly configured $PATH variable
-PATH=/usr/local/git/bin:/usr/local/bin:/usr/bin:/bin
+if [[ "$(id -u)" = "0" ]]; then
+    PATH=/usr/local/sbin:/usr/sbin/:/sbin:
+else
+    PATH=""
+fi
+PATH=${PATH-""}/usr/local/git/bin:/usr/local/bin:/usr/bin:/bin
 PATH=$PATH:/usr/games:/opt/local/bin:/usr/X11/bin
 
 # Path to your oh-my-zsh configuration.
