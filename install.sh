@@ -7,9 +7,62 @@
 ###
 # Debug
 ###
-set -x # comment to disable debug
+#set -x # comment to disable debug
+
+# functions
+function is_installed
+{
+    # this function searches the paths below to find a certain program
+    local search_path=/bin:/usr/bin:/usr/local/bin
+
+    if [[ "$#" != "1" ]]; then
+        echo "usage : $FUNC_NAME program_name"
+    fi
+
+    local program_name="$1"
+    local IFS=":"
+    for directory in ${search_path}; do
+        if [[ -d ${directory} ]] && [[ -f ${directory}/${program_name} ]]; then
+            echo "yes"
+            return 0
+        fi
+    done
+
+    echo "no"
+    return 1
+}
+
+function get_full_path
+{
+    # this function searches the paths below to find a certain program
+    local search_path=/bin:/usr/bin:/usr/local/bin
+
+    if [[ "$#" != "1" ]]; then
+        echo "usage : $FUNC_NAME program_name"
+    fi
+
+    local program_name="$1"
+    local IFS=":"
+    for directory in ${search_path}; do
+        if [[ -d ${directory} ]] && [[ -f ${directory}/${program_name} ]]; then
+            echo "${directory}/${program_name}"
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+function get_shell
+{
+    echo $(basename $SHELL)
+}
 
 # variables
+HAS_VIM=$(is_installed "vim")
+HAS_GVIM=$(is_installed "gvim")
+HAS_TERMINATOR=$(is_installed "terminator")
+HAS_ZSH=$(is_installed "zsh")
 DOTFILES_DIR=$HOME/.dotfiles
 
 # oh-my-zsh
@@ -21,37 +74,39 @@ else
     git pull
 fi
 
-if [ "$(which zsh)" = "" ]; then
-    sudo apt-get install zsh
+if [ "${HAS_ZSH}" = "no" ]; then
+    sudo apt-get install zsh || sudo pacman -S zsh
 fi
 
-# change default shell
-ok=0
-if [ "$(cat /etc/passwd | grep $USER | cut -f7 -d':')" = "/usr/bin/zsh" ]; then
-    let ok=1;
-fi
-while [ "$ok" = "0" ]; do
-    echo "Do you want to change your shell to zsh? (yes/no)"
-    read choice
-    if [ "$choice" = "yes" ]; then
-        chsh -s /usr/bin/zsh
-        ok=1
-    elif [ "$choice" = "no" ]; then
-        echo "Did not change the shell"
-        ok=1
-    else
-        echo "Please answer with yes or no!"
+HAS_ZSH=$(is_installed "zsh")
+
+if [[ "$HAS_ZSH" = "yes" ]] && [[ "$(get_shell)" != "zsh" ]]; then
+    # change default shel
+    read -p "Do you want to change your default shell ($(get_shell)) to zsh? (yes/no) " answer
+    if [[ "${answer}" = "yes" ]]; then
+        local zsh_full_pash=$(get_full_path "zsh")
+        chsh -s ${zsh_full_path}
     fi
-done
+fi
 
 # symbolic links
 declare -A SYMBOLIC_LINKS
-SYMBOLIC_LINKS=(["vim"]="$HOME/.vim")
-SYMBOLIC_LINKS+=(["vimrc"]="$HOME/.vimrc")
-SYMBOLIC_LINKS+=(["gvimrc"]="$HOME/.gvimrc")
-SYMBOLIC_LINKS+=(["terminator"]="$HOME/.config/terminator/config")
-SYMBOLIC_LINKS+=(["oh-my-zsh"]="$HOME/.oh-my-zsh")
-SYMBOLIC_LINKS+=(["zshrc"]="$HOME/.zshrc")
+if [[ "${HAS_VIM}" = "yes" ]]; then
+    SYMBOLIC_LINKS=(["vim"]="$HOME/.vim")
+    SYMBOLIC_LINKS+=(["vimrc"]="$HOME/.vimrc")
+fi
+if [[ "${HAS_GVIM}" = "yes" ]]; then
+    SYMBOLIC_LINKS+=(["gvimrc"]="$HOME/.gvimrc")
+fi
+if [[ "${HAS_TERMINATOR}" = "yes" ]]; then
+    mkdir -p $HOME/.config/terminator
+    SYMBOLIC_LINKS+=(["terminator"]="$HOME/.config/terminator/config")
+fi
+if [[ "${HAS_ZSH}" = "yes" ]]; then
+    SYMBOLIC_LINKS+=(["oh-my-zsh"]="$HOME/.oh-my-zsh")
+    SYMBOLIC_LINKS+=(["zshrc"]="$HOME/.zshrc")
+    SYMBOLIC_LINKS+=(["private"]="$HOME/.private")
+fi
 
 # make symbolic links in $HOME
 for link in "${!SYMBOLIC_LINKS[@]}"; do
