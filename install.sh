@@ -84,7 +84,7 @@ if [[ "$HAS_ZSH" = "yes" ]] && [[ "$(get_shell)" != "zsh" ]]; then
     # change default shel
     read -p "Do you want to change your default shell ($(get_shell)) to zsh? (yes/no) " answer
     if [[ "${answer}" = "yes" ]]; then
-        local zsh_full_pash=$(get_full_path "zsh")
+        zsh_full_path=$(get_full_path "zsh")
         chsh -s ${zsh_full_path}
     fi
 fi
