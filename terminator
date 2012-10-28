@@ -7,6 +7,7 @@
     use_system_font = False
     background_darkness = 0.94
     background_type = transparent
+    foreground_color = "#e1cc54"
     scroll_on_output = False
     cursor_shape = ibeam
     font = Monospace 9

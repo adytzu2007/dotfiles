@@ -7,62 +7,52 @@
 ###
 # Debug
 ###
-#set -x # comment to disable debug
+set -x # comment to disable debug
 
 # functions
-function is_installed
-{
-    # this function searches the paths below to find a certain program
-    local search_path=/bin:/usr/bin:/usr/local/bin
-
-    if [[ "$#" != "1" ]]; then
-        echo "usage : $FUNC_NAME program_name"
-    fi
-
-    local program_name="$1"
-    local IFS=":"
-    for directory in ${search_path}; do
-        if [[ -d ${directory} ]] && [[ -f ${directory}/${program_name} ]]; then
-            echo "yes"
-            return 0
-        fi
-    done
-
-    echo "no"
-    return 1
-}
-
 function get_full_path
 {
     # this function searches the paths below to find a certain program
-    local search_path=/bin:/usr/bin:/usr/local/bin
+    local search_path=/bin:/usr/bin:/usr/local/bin;
 
     if [[ "$#" != "1" ]]; then
-        echo "usage : $FUNC_NAME program_name"
+        echo "usage : $FUNC_NAME program_name";
     fi
 
-    local program_name="$1"
-    local IFS=":"
+    local program_name="$1";
+    local IFS=":";
     for directory in ${search_path}; do
         if [[ -d ${directory} ]] && [[ -f ${directory}/${program_name} ]]; then
-            echo "${directory}/${program_name}"
-            return 0
+            echo "${directory}/${program_name}";
+            return 0;
         fi
     done
 
-    return 1
+    return 1;
 }
 
 function get_shell
 {
-    echo $(basename $SHELL)
+    echo $(basename $SHELL);
+}
+
+function prompt_user
+{
+    if [[ "$#" != "2" ]]; then
+        echo "usage : $FUNC_NAME prompt_value default_value";
+    fi
+
+    local prompt_value=$1;
+    local default_value=$2;
+    read -p "$prompt_value [$default_value] :" answer
+    if [[ "$answer" = "" ]]; then
+        answer=$default_value
+    fi
+
+    echo $answer
 }
 
 # variables
-HAS_VIM=$(is_installed "vim")
-HAS_GVIM=$(is_installed "gvim")
-HAS_TERMINATOR=$(is_installed "terminator")
-HAS_ZSH=$(is_installed "zsh")
 DOTFILES_DIR=$HOME/.dotfiles
 
 # oh-my-zsh
@@ -74,15 +64,13 @@ else
     git pull
 fi
 
-if [ "${HAS_ZSH}" = "no" ]; then
+if ! get_full_path "zsh"; then
     sudo apt-get install zsh || sudo pacman -S zsh
 fi
 
-HAS_ZSH=$(is_installed "zsh")
-
-if [[ "$HAS_ZSH" = "yes" ]] && [[ "$(get_shell)" != "zsh" ]]; then
-    # change default shel
-    read -p "Do you want to change your default shell ($(get_shell)) to zsh? (yes/no) " answer
+if get_full_path "zsh" && [[ "$(get_shell)" != "zsh" ]]; then
+    # change default shell
+    answer=$(prompt_user "Do you want to change your default shell ($(get_shell)) to zsh?" "yes")
     if [[ "${answer}" = "yes" ]]; then
         zsh_full_path=$(get_full_path "zsh")
         chsh -s ${zsh_full_path}
@@ -91,18 +79,18 @@ fi
 
 # symbolic links
 declare -A SYMBOLIC_LINKS
-if [[ "${HAS_VIM}" = "yes" ]]; then
+if get_full_path "vim"; then
     SYMBOLIC_LINKS=(["vim"]="$HOME/.vim")
     SYMBOLIC_LINKS+=(["vimrc"]="$HOME/.vimrc")
 fi
-if [[ "${HAS_GVIM}" = "yes" ]]; then
-    SYMBOLIC_LINKS+=(["gvimrc"]="$HOME/.gvimrc")
+if get_full_path "gvim"; then
+    SYMBOLIC_LINKS+=(["vimrc"]=" $HOME/.gvimrc")
 fi
-if [[ "${HAS_TERMINATOR}" = "yes" ]]; then
+if get_full_path "terminator"; then
     mkdir -p $HOME/.config/terminator
     SYMBOLIC_LINKS+=(["terminator"]="$HOME/.config/terminator/config")
 fi
-if [[ "${HAS_ZSH}" = "yes" ]]; then
+if get_full_path "zsh"; then
     SYMBOLIC_LINKS+=(["oh-my-zsh"]="$HOME/.oh-my-zsh")
     SYMBOLIC_LINKS+=(["zshrc"]="$HOME/.zshrc")
     SYMBOLIC_LINKS+=(["private"]="$HOME/.private")
@@ -110,12 +98,15 @@ fi
 
 # make symbolic links in $HOME
 for link in "${!SYMBOLIC_LINKS[@]}"; do
-    if [ ! -e ${SYMBOLIC_LINKS[$link]} ]; then
-        ln -s $DOTFILES_DIR/$link ${SYMBOLIC_LINKS[$link]}
-    else
-        rm -rf ${SYMBOLIC_LINKS[$link]}
-        ln -s $DOTFILES_DIR/$link ${SYMBOLIC_LINKS[$link]}
-    fi
+    backup_ifs=$IFS;
+    IFS=" ";
+    for destination in ${SYMBOLIC_LINKS[$link]}; do
+        if [ -e $destination ]; then
+            rm -rf $destination;
+        fi
+        ln -s $DOTFILES_DIR/$link $destination;
+    done
+    IFS=$backup
 done
 
 # create directories

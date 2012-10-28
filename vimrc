@@ -80,12 +80,17 @@ autocmd BufReadPost *
   \ if line ("'\"") > 0 && line("'\"") <= line("$") |
   \   exe "normal g`\"" |
   \ endif
+" Parse .g files as antlr files
+autocmd BufRead,BufNewFile *.g set filetype=antlr3
 
 autocmd FileType text setlocal textwidth=78
 
-" we don't want tabs to expand to spaces for makefiles of haskell files
+" we don't want tabs to expand to spaces for certain files
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal noexpandtab
+
+" enable auto complete
+set ofu=syntaxcomplete#Complete
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -98,7 +103,7 @@ syntax enable
 
 " Enable 256-color mode
 set t_Co=256
-colorscheme molokai
+colorscheme desertEx
 
 " Highlight characters that go over 80 columns
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -173,7 +178,7 @@ set modeline
 " 6. Function definitions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function VarExists(var, val)
+function! VarExists(var, val)
   if exists(a:var) | return a:val | else | return '' | endif
 endfunction
 
@@ -182,44 +187,47 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 7. ViM Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""
 
-" Mapping from usenet
-imap jj <Esc>
+" set map leader
+let mapleader = ","
 
-" quick fixing
-nnoremap <Tab>    :cnext<Cr>
-nnoremap <S-Tab>  :cprev<Cr>
+"" Tabs and split windows
+nmap        <Leader>1   :tabnew<CR>
+nmap        <Leader>2   :tabnew<CR>:e 
+nmap        <Leader>3   <C-w>v
+nmap        <Leader>4   <C-w>v:e 
 
-"map Q gq
+"" Move through tabs and windows
+nnoremap    <Tab>       <C-w>w
+map         <C-Left>    <ESC>:tabp<CR>i
+map         <C-Right>   <ESC>:tabn<CR>i
+imap        <C-Left>    <ESC><C-Left>
+imap        <C-Right>   <ESC><C-Right>
 
-" Space as PageDown like web browser
-nmap  <Space> <PageDown>
-vmap  <Space> <PageDown>
+"" Forced commands
+nmap        <Leader>w   :w!<CR>
+nmap        <Leader>q   :q!<CR>
 
-map   <F2>    <ESC>:tabnew<CR>
-map   <F3>    <ESC>:tabnew<CR>:e 
-imap  <F2>    <ESC><F2>i
-imap  <F3>    <ESC><F2>
+" indent file
+map         <Leader>i   <ESC>gg=G
 
-map   <C-Left>    <ESC>:tabp<CR>i
-map   <C-Right>   <ESC>:tabn<CR>i
-imap  <C-Left>    <ESC><C-Left>
-imap  <C-Right>   <ESC><C-Right>
+"" Function keys
+nmap        <F2>        :NERDTreeTabsToggle<CR>
+imap        <F2>        <ESC><F2>
 
-nmap <F5> :make<CR>
-nmap <F7> :make clean<CR>
-imap <F5> <ESC><F5>
-imap <F7> <ESC><F7>
 ""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Versioning Systems plugins' options
 ""
+
 if has("vms")
   set nobackup
 else
   set backup
 endif
+
 ""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
