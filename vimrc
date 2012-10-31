@@ -90,7 +90,7 @@ autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal noexpandtab
 
 " enable auto complete
-set ofu=syntaxcomplete#Complete
+"set ofu=syntaxcomplete#Complete
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -103,7 +103,7 @@ syntax enable
 
 " Enable 256-color mode
 set t_Co=256
-colorscheme desertEx
+colorscheme candycode
 
 " Highlight characters that go over 80 columns
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929

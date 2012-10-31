@@ -1,6 +1,5 @@
 [global_config]
   window_state = maximise
-  tab_position = bottom
 [keybindings]
 [profiles]
   [[default]]
@@ -10,7 +9,7 @@
     foreground_color = "#e1cc54"
     scroll_on_output = False
     cursor_shape = ibeam
-    font = Monospace 9
+    font = Monospace 8
     scrollback_infinite = True
 [layouts]
   [[default]]

@@ -95,6 +95,9 @@ if get_full_path "zsh"; then
     SYMBOLIC_LINKS+=(["zshrc"]="$HOME/.zshrc")
     SYMBOLIC_LINKS+=(["private"]="$HOME/.private")
 fi
+if get_full_path "git"; then
+    SYMBOLIC_LINKS+=(["gitignore_global"]="$HOME/.gitignore_global")
+fi
 
 # make symbolic links in $HOME
 for link in "${!SYMBOLIC_LINKS[@]}"; do
