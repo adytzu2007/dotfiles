@@ -1,12 +1,3 @@
-# Explicitly configured $PATH variable
-if [[ "$(id -u)" = "0" ]]; then
-    PATH=/usr/local/sbin:/usr/sbin/:/sbin:
-else
-    PATH=""
-fi
-PATH=${PATH-""}/usr/local/git/bin:/usr/local/bin:/usr/bin:/bin
-PATH=$PATH:/usr/games:/opt/local/bin:/usr/X11/bin
-
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -35,7 +26,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load?
 # (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git archlinux history-substring-search)
+plugins=(archlinux history-substring-search)
 
 . $ZSH/oh-my-zsh.sh
 

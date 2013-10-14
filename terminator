@@ -1,15 +1,38 @@
 [global_config]
   window_state = maximise
+  handle_size = -3
+  title_hide_sizetext = True
+  focus = mouse
+  title_transmit_fg_color = "#000000"
+  geometry_hinting = False
+  enabled_plugins = CustomCommandsMenu, InactivityWatch, TestPlugin, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, Logger, MavenPluginURLHandler, LaunchpadBugURLHandler
+  suppress_multiple_term_dialog = True
+  borderless = True
+  title_receive_bg_color = "#ababab"
+  title_transmit_bg_color = "#ffffff"
+  title_receive_fg_color = "#000000"
+  inactive_color_offset = 0.89
+  title_inactive_bg_color = "#000000"
 [keybindings]
+  broadcast_group = <Super>f
+  broadcast_all = <Super>g
+  ungroup_all = None
+  broadcast_off = <Shift><Super>g
+  ungroup_tab = None
+  group_all = <Super>r
 [profiles]
   [[default]]
-    use_system_font = False
-    background_darkness = 0.94
-    background_type = transparent
-    foreground_color = "#e1cc54"
+    background_image = None
     scroll_on_output = False
-    cursor_shape = ibeam
-    font = Monospace 8
+    scrollback_infinite = True
+  [[adila]]
+    scrollbar_position = hidden
+    background_image = None
+    palette = "#000000:#aa0000:#00aa00:#aa5500:#0000aa:#aa00aa:#00aaaa:#aaaaaa:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
+    cursor_color = "#45bf29"
+    foreground_color = "#ffffff"
+    backspace_binding = automatic
+    delete_binding = automatic
     scrollback_infinite = True
 [layouts]
   [[default]]

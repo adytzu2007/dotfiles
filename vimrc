@@ -11,6 +11,7 @@
 " - amix@amix.dk (amix the lucky stiff)
 "   amix.dk/vim/vimrc.html
 " - michaeljsmalley - https://github.com/michaeljsmalley
+" - Jose Elena Campana - https://github/jelera
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -22,6 +23,13 @@ set nocompatible
 
 " Activate autowrite
 set autowrite
+" Activate autoread
+set autoread
+
+" Automatically use the current file's directory as the working directory
+set autochdir
+
+set shortmess=atToOI
 
 " Directories for backup and swap
 set backupdir=/tmp
@@ -51,10 +59,16 @@ set hidden
 
 " Activate enhanced command completion
 set wildmenu
+set wildmode=full
 
 " Set command line history
 set history=50
 set showcmd
+
+" Encoding
+set encoding=utf-8
+set termencoding=utf-8
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -68,7 +82,7 @@ filetype plugin indent on
 
 " Trim trailing whitespaces on save
 " set up filter for files that we don't want trimming on
-autocmd FileType vim let b:noTrimm = 1
+autocmd FileType vim,markdown let b:noTrimm = 1
 
 autocmd BufWritePre *
   \ if !exists("b:noTrimm") |
@@ -144,6 +158,9 @@ set number
 " Open new vertical splits to the right of current one.
 set splitright
 
+set ttyfast
+set lazyredraw
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -152,6 +169,8 @@ set splitright
 
 " Activate auto-indent
 set autoindent
+set smartindent
+set cindent
 
 " Set tab and indent width
 set tabstop=4
@@ -164,13 +183,17 @@ set encoding=utf-8
 
 set backspace=2
 
-set nowrap
+set wrap
 
 " Mark tabs and spaces
 set list listchars=tab:»\ ,trail:·,extends:»,precedes:«
 
 " Add modeline functionality
 set modeline
+
+if has('gui_running')
+    set guifont=Fixed\ 11
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -191,6 +214,7 @@ endfunction
 
 " set map leader
 let mapleader = ","
+let g:mapleader = ','
 
 "" Tabs and split windows
 nmap        <Leader>1   :tabnew<CR>
@@ -200,8 +224,8 @@ nmap        <Leader>4   <C-w>v:e
 
 "" Move through tabs and windows
 nnoremap    <Tab>       <C-w>w
-map         <C-Left>    <ESC>:tabp<CR>i
-map         <C-Right>   <ESC>:tabn<CR>i
+map         <C-Left>    <ESC>:tabp<CR>i<Right>
+map         <C-Right>   <ESC>:tabn<CR>i<Right>
 imap        <C-Left>    <ESC><C-Left>
 imap        <C-Right>   <ESC><C-Right>
 
