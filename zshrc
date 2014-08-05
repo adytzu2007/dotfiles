@@ -75,4 +75,16 @@ isol() {
     else
         echo "usage: isol <sol_ip>"
     fi
+
+repo2sm() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: $0 repo_to_convert"
+    fi
+
+    repo_dir=$1
+    pushd ${repo_dir}
+    repo_url=$(git remote -v | grep fetch | head -n 1 | awk '{print $2}')
+    popd
+    git rm -r --cached ${repo_dir}
+    git submodule add ${repo_url} ${repo_dir}
 }
