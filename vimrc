@@ -15,11 +15,39 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 0. Vundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Vundle should handle itself
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'bling/vim-airline'
+Plugin 'SirVer/ultisnips'
+Plugin 'elzr/vim-json'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mhinz/vim-signify'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'rking/ag.vim'
+
+" color schemes
+"Plugin 'flazz/vim-colorschemes'
+"Plugin 'vim-scripts/ScrollColors'
+"Plugin 'godlygeek/csapprox'
+Plugin 'altercation/vim-colors-solarized'
+
+call vundle#end()
+filetype plugin indent on
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 1. General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Disable Vi compatibility
-set nocompatible
 
 " Activate autowrite
 set autowrite
@@ -116,8 +144,9 @@ autocmd FileType haskell setlocal noexpandtab
 syntax enable
 
 " Enable 256-color mode
-set t_Co=256
-colorscheme candycode
+set t_Co=16
+set background=dark
+colorscheme solarized
 
 " Highlight characters that go over 80 columns
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -130,7 +159,7 @@ match OverLength /\%81v.\+/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Setup status line
-set statusline=%<%f\ %y%h%m%r%=%-24(0x%02B\(%03b\)\ \L\:%l/%L\ %c%V%)\ %P
+" set statusline=%<%f\ %y%h%m%r%=%-24(0x%02B\(%03b\)\ \L\:%l/%L\ %c%V%)\ %P
 set laststatus=2 " last windows always has a statusline
 
 " always show info along bottom
@@ -183,7 +212,9 @@ set encoding=utf-8
 
 set backspace=2
 
-set wrap
+set nowrap
+set textwidth=0
+set wrapmargin=0
 
 " Mark tabs and spaces
 set list listchars=tab:»\ ,trail:·,extends:»,precedes:«
@@ -216,16 +247,16 @@ endfunction
 let mapleader = ","
 let g:mapleader = ','
 
-"" Tabs and split windows
-nmap        <Leader>1   :tabnew<CR>
-nmap        <Leader>2   :tabnew<CR>:e 
-nmap        <Leader>3   <C-w>v
-nmap        <Leader>4   <C-w>v:e 
+"" buffers and split windows
+nmap        <Leader>1   :enew<CR>
+nmap        <Leader>2   :e 
+nmap        <Leader>3   :vnew<CR>
+nmap        <Leader>4   :vnew 
 
 "" Move through tabs and windows
 nnoremap    <Tab>       <C-w>w
-map         <C-Left>    <ESC>:tabp<CR>i<Right>
-map         <C-Right>   <ESC>:tabn<CR>i<Right>
+map         <C-Left>    <ESC>:bp<CR>
+map         <C-Right>   <ESC>:bn<CR>
 imap        <C-Left>    <ESC><C-Left>
 imap        <C-Right>   <ESC><C-Right>
 
@@ -255,3 +286,18 @@ endif
 
 ""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" Latex
+"" TODO reorganize vimrc
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor = "xelatex"
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
+if &term =~ '^screen'
+    " tmux will send xterm-style keys when its xterm-keys option is on
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+endif

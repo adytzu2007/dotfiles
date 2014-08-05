@@ -12,3 +12,6 @@ man() {
 		LESS_TERMCAP_us=$(printf "\e[1;32m") \
 			man "$@"
 }
+
+typeset -x GOPATH=${HOME}/work/langs/go
+alias tmux='TERM=xterm-256color tmux'
