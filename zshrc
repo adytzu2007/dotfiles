@@ -75,6 +75,7 @@ isol() {
     else
         echo "usage: isol <sol_ip>"
     fi
+}
 
 repo2sm() {
     if [[ $# -ne 1 ]]; then

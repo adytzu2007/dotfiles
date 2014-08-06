@@ -6,7 +6,7 @@
 
 declare -A packages
 
-packages["archlinux"]="sudo pacman -S --noconfirm"
+packages["archlinux"]="sudo pacman -S --noconfirm --needed"
 packages["archlinux,git"]="git"
 packages["archlinux,tmux"]="tmux"
 packages["archlinux,zsh"]="zsh"
