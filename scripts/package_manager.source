@@ -1,0 +1,33 @@
+# vim: set ft=sh:
+# -*- conding: UTF-8 -*-
+
+# package manager abstractions
+# base.source must be sourced before this
+
+declare -A packages
+
+packages["archlinux"]="sudo pacman -S --noconfirm --needed"
+packages["archlinux,git"]="git"
+packages["archlinux,tmux"]="tmux"
+packages["archlinux,zsh"]="zsh"
+packages["archlinux,gvim"]="gvim"
+
+function install_package
+{
+    distro=$(get_distro)
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: $0 package"
+    fi
+
+    package=${packages["$distro,$1"]}
+    if [[ -n $package ]]; then
+        debug_print "Installing package ${package}"
+        eval "${packages[$distro]} ${package}"
+    else
+        return 1
+    fi
+
+    return 0
+}
+
+

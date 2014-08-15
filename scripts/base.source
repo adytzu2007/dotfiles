@@ -1,9 +1,21 @@
-##
-#
+# vim: set ft=sh:
+# -*- conding: UTF-8 -*-
+
 # base functions and variables
-#
-##
+
+# location where the dotfiles repository is installed
 DOTFILES_DIR=${HOME}/.dotfiles
+
+function get_distro
+{
+    if [[ -f /etc/arch-release ]]; then
+        echo "archlinux"
+        return 0
+    fi
+
+    echo "unknown"
+    return 1
+}
 
 function get_full_path
 {

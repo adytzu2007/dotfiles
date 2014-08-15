@@ -6,28 +6,20 @@
 #
 ##
 
-source ./scripts/base.inc.sh
+source ./scripts/base.source
+source ./scripts/package_manager.source
 debug_on
 
-# oh-my-zsh
-# clone oh-my-zsh git repo
-if [ ! -d ${DOTFILES_DIR}/oh-my-zsh ]; then
-    debug_print "Cloning oh-my-zsh repo"
-    git clone https://github.com/adytzu2007/oh-my-zsh.git ${DOTFILES_DIR}/oh-my-zsh
-else
-    debug_print "Pulling from oh-my-zsh repo"
-    cd ${DOTFILES_DIR}/oh-my-zsh
-    git pull
-fi
+install_package "zsh"
+install_package "tmux"
+install_package "gvim"
+install_package "git"
 
-if ! hash "zsh" > /dev/null; then
-    debug_print "Installing zsh"
-    sudo apt-get install zsh || sudo pacman -S zsh
-fi
-
-if hash "zsh" > /dev/null && [[ "$(get_default_shell)" != "zsh" ]]; then
-    # change default shell
-    answer=$(prompt_user "Do you want to change your default shell ($(get_shell)) to zsh?" "yes")
+default_shell=$(get_default_shell)
+if [[ "${default_shell}" != "zsh" ]]; then
+    answer=$(prompt_user \
+        "Do you want to change your default shell ($default_shell) to zsh?" \
+        "yes")
     if [[ "${answer}" = "yes" ]]; then
         debug_print "Changing default shell to zsh"
         zsh_full_path=$(get_full_path "zsh")
@@ -46,14 +38,13 @@ fi
 declare -A SYMBOLIC_LINKS
 
 SYMBOLIC_LINKS+=(["vim"]="${HOME}/.vim")
-SYMBOLIC_LINKS+=(["vimrc"]="${HOME}/.vimrc ${HOME}/.gvimrc")
+SYMBOLIC_LINKS+=(["vimrc"]="${HOME}/.vimrc")
+SYMBOLIC_LINKS+=(["vimrc"]=" ${HOME}/.gvimrc")
 SYMBOLIC_LINKS+=(["oh-my-zsh"]="${HOME}/.oh-my-zsh")
 SYMBOLIC_LINKS+=(["zshrc"]="${HOME}/.zshrc")
 SYMBOLIC_LINKS+=(["private"]="${HOME}/.private")
-SYMBOLIC_LINKS+=(["gitignore_global"]="${HOME}/.gitignore_global")
-SYMBOLIC_LINKS+=(["tmux.conf"]="${HOME}/.tmux.conf")
+SYMBOLIC_LINKS+=(["gitignore"]="${HOME}/.config/git/ignore")
 
-# make symbolic links in $HOME
 for link in "${!SYMBOLIC_LINKS[@]}"; do
     IFS=" ";
     for destination in ${SYMBOLIC_LINKS[$link]}; do
@@ -61,6 +52,7 @@ for link in "${!SYMBOLIC_LINKS[@]}"; do
             rm -rf ${destination};
         fi
         debug_print "Linking ${DOTFILES_DIR}/$link to ${destination}"
+        mkdir -p $(dirname ${destination})
         ln -s -f $DOTFILES_DIR/$link $destination;
     done
 done
