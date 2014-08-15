@@ -35,6 +35,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'mhinz/vim-signify'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rking/ag.vim'
+Plugin 'vim-scripts/LargeFile'
 
 " color schemes
 "Plugin 'flazz/vim-colorschemes'
@@ -202,9 +203,9 @@ set smartindent
 set cindent
 
 " Set tab and indent width
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=3
+set softtabstop=3
+set shiftwidth=3
 " Expand tabs to spaces
 set expandtab
 

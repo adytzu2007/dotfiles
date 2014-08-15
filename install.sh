@@ -45,30 +45,13 @@ fi
 #   notice that the space is needed as the values will be appended
 declare -A SYMBOLIC_LINKS
 
-if hash "vim" > /dev/null; then
-    debug_print "ViM is installed"
-    SYMBOLIC_LINKS+=(["vim"]="${HOME}/.vim")
-    SYMBOLIC_LINKS+=(["vimrc"]="${HOME}/.vimrc")
-fi
-if hash "gvim" > /dev/null; then
-    debug_print "GViM is installed"
-    SYMBOLIC_LINKS+=(["vimrc"]=" ${HOME}/.gvimrc")
-fi
-if hash "terminator" > /dev/null; then
-    debug_print "Terminator is installed"
-    mkdir -p ${HOME}/.config/terminator
-    SYMBOLIC_LINKS+=(["terminator"]="${HOME}/.config/terminator/config")
-fi
-if hash "zsh" > /dev/null; then
-    debug_print "Zsh is installed"
-    SYMBOLIC_LINKS+=(["oh-my-zsh"]="${HOME}/.oh-my-zsh")
-    SYMBOLIC_LINKS+=(["zshrc"]="${HOME}/.zshrc")
-    SYMBOLIC_LINKS+=(["private"]="${HOME}/.private")
-fi
-if hash "git" > /dev/null; then
-    debug_print "Git is installed"
-    SYMBOLIC_LINKS+=(["gitignore_global"]="${HOME}/.gitignore_global")
-fi
+SYMBOLIC_LINKS+=(["vim"]="${HOME}/.vim")
+SYMBOLIC_LINKS+=(["vimrc"]="${HOME}/.vimrc ${HOME}/.gvimrc")
+SYMBOLIC_LINKS+=(["oh-my-zsh"]="${HOME}/.oh-my-zsh")
+SYMBOLIC_LINKS+=(["zshrc"]="${HOME}/.zshrc")
+SYMBOLIC_LINKS+=(["private"]="${HOME}/.private")
+SYMBOLIC_LINKS+=(["gitignore_global"]="${HOME}/.gitignore_global")
+SYMBOLIC_LINKS+=(["tmux.conf"]="${HOME}/.tmux.conf")
 
 # make symbolic links in $HOME
 for link in "${!SYMBOLIC_LINKS[@]}"; do

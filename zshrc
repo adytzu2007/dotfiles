@@ -26,7 +26,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load?
 # (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(archlinux history-substring-search vim)
+plugins=(archlinux history-substring-search)
 
 . $ZSH/oh-my-zsh.sh
 
@@ -76,3 +76,5 @@ isol() {
         echo "usage: isol <sol_ip>"
     fi
 }
+
+source ~/.work_env/base.source
