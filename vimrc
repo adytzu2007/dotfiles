@@ -35,7 +35,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'mhinz/vim-signify'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rking/ag.vim'
-Plugin 'vim-scripts/LargeFile'
+Plugin 'hdima/python-syntax'
 
 " color schemes
 "Plugin 'flazz/vim-colorschemes'
