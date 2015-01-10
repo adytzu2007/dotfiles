@@ -57,7 +57,7 @@ set autowrite
 set autoread
 
 " Automatically use the current file's directory as the working directory
-"set autochdir
+set autochdir
 
 set shortmess=atToOI
 
