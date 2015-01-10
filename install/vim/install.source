@@ -4,7 +4,7 @@
 install_package "gvim"
 
 if which vim > /dev/null; then
-    make_link "vim" "${HOME}/.vim"
+    make_link "." "${HOME}/.vim"
     make_link "vimrc" "${HOME}/.vimrc"
     make_link "vimrc" "${HOME}/.gvimrc"
     make_link "vimrc" "${HOME}/.nvimrc"

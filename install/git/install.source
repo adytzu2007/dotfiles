@@ -1,12 +1,8 @@
 # vim: filetype=sh
 # git
+# we assume this is installed
 
-install_package "git"
 install_package "meld"
 
-if which git > /dev/null; then
-    make_link "gitignore" "${HOME}/.config/git/ignore"
-    make_link "gitconfig" "${HOME}/.gitconfig"
-else
-    debug_print "git is not installed. Skipping git files."
-fi
+make_link "gitignore" "${HOME}/.config/git/ignore"
+make_link "gitconfig" "${HOME}/.gitconfig"
