@@ -94,11 +94,13 @@ function make_link
             echo "Moving ${dst} to ${dst}.bak"
             mv ${dst} ${dst}.bak
         else
-            continue
+            return 1
         fi
     fi
 
     debug_print "Linking ${src} to ${dst}"
     mkdir -p $(dirname ${dst})
     ln -s -f ${src} ${dst}
+
+    return 0
 }
