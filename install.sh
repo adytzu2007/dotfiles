@@ -6,26 +6,15 @@
 #
 ##
 
-source ./scripts/base.source
-source ./scripts/package_manager.source
+# location where the dotfiles repository is installed
+DOTFILES_DIR="$(readlink -f $(dirname $0))"
+
+SCRIPTS_DIR=${DOTFILES_DIR}/scripts
+INSTALL_DIR=${DOTFILES_DIR}/install
+
+source ${SCRIPTS_DIR}/base.source
+source ${SCRIPTS_DIR}/package_manager.source
 debug_on
-
-install_package "zsh"
-install_package "tmux"
-install_package "gvim"
-install_package "git"
-
-default_shell=$(get_default_shell)
-if [[ "${default_shell}" != "zsh" ]]; then
-    answer=$(prompt_user \
-        "Do you want to change your default shell ($default_shell) to zsh?" \
-        "yes")
-    if [[ "${answer}" = "yes" ]]; then
-        debug_print "Changing default shell to zsh"
-        zsh_full_path=$(get_full_path "zsh")
-        chsh -s ${zsh_full_path}
-    fi
-fi
 
 # symbolic links
 # SYMBOLIC_LINKS is an associative array
@@ -35,28 +24,37 @@ fi
 #   SYMBOLIC_LINKS+=(["file"]="location1 location2")
 #   SYMOBLIC_LINKS+=(["file"]=" location3")
 #   notice that the space is needed as the values will be appended
+#
+#   each folder from the install directory should have an install.source
+#   file that defines how the contents should be installed
 declare -A SYMBOLIC_LINKS
 
-SYMBOLIC_LINKS+=(["vim"]="${HOME}/.vim")
-SYMBOLIC_LINKS+=(["vimrc"]="${HOME}/.vimrc")
-SYMBOLIC_LINKS+=(["vimrc"]=" ${HOME}/.gvimrc")
-SYMBOLIC_LINKS+=(["oh-my-zsh"]="${HOME}/.oh-my-zsh")
-SYMBOLIC_LINKS+=(["zshrc"]="${HOME}/.zshrc")
-SYMBOLIC_LINKS+=(["private"]="${HOME}/.private")
-SYMBOLIC_LINKS+=(["gitignore"]="${HOME}/.config/git/ignore")
-SYMBOLIC_LINKS+=(["tmux.conf"]="${HOME}/.tmux.conf")
+for package in ${INSTALL_DIR}/*; do
+    if [[ -f ${package}/install.source ]]; then
+        source ${package}/install.source
+    else
+        debug_print "Warning (package ${package}): missing install.source"
+    fi
+done
 
 for link in "${!SYMBOLIC_LINKS[@]}"; do
-    IFS=" ";
-    for destination in ${SYMBOLIC_LINKS[$link]}; do
-        if [ -e ${destination} ]; then
-            rm -rf ${destination};
+    for destination in "${SYMBOLIC_LINKS[$link]}"; do
+        if [[ -e ${destination} ]]; then
+            echo "Link destination already exists."
+            answer=$(prompt_user \
+                "Are you sure you want to overwrite? (yes/no)"
+                "yes")
+            if [[ ${answer} = "yes" ]]; then
+                echo "Moving ${destination} to ${destination}.bak"
+                mv ${destination} ${destination}.bak
+            else
+                continue
+            fi
         fi
         debug_print "Linking ${DOTFILES_DIR}/$link to ${destination}"
         mkdir -p $(dirname ${destination})
-        ln -s -f $DOTFILES_DIR/$link $destination;
+        ln -s -f $DOTFILES_DIR/${link} ${destination}
     done
 done
 
-# create directories
-mkdir -p ${HOME}/.vim_runtime/undodir
+

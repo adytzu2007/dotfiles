@@ -1,0 +1,7 @@
+# vim: filetype=sh
+# git
+
+install_package "git"
+
+SYMBOLIC_LINKS+=(["gitignore"]="${HOME}/.config/git/ignore")
+SYMBOLIC_LINKS+=(["gitconfig"]="${HOME}/.gitconfig")

@@ -1,0 +1,6 @@
+# vim: filetype=sh
+# tmux
+
+install_package "tmux"
+
+SYMBOLIC_LINKS+=(["tmux.conf"]="${HOME}/.tmux.conf")

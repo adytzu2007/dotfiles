@@ -1,0 +1,9 @@
+# vim: filetype=sh
+# vim
+
+install_package "gvim"
+
+SYMBOLIC_LINKS+=(["vim"]="${HOME}/.vim")
+SYMBOLIC_LINKS+=(["vimrc"]="${HOME}/.vimrc")
+SYMBOLIC_LINKS+=(["vimrc"]=" ${HOME}/.gvimrc")
+SYMBOLIC_LINKS+=(["vimrc"]=" ${HOME}/.nvimrc")
