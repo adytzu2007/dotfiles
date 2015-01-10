@@ -18,7 +18,7 @@ debug_on
 
 for package in ${INSTALL_DIR}/*; do
     if [[ -f ${package}/install.source ]]; then
-        PACKAGE_DIR=${DOTFILES_DIR}/${package}
+        PACKAGE_DIR=${package}
         source ${package}/install.source
     else
         debug_print "Warning (package ${package}): missing install.source"
