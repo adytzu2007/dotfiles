@@ -90,4 +90,7 @@ repo2sm() {
     git submodule add ${repo_url} ${repo_dir}
 }
 
-source ~/.work_env/base.source
+meteor() {
+    METEOR="${HOME}/work/open-source/meteor/meteor"
+    ${METEOR} $@
+}
