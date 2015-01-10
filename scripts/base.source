@@ -4,7 +4,7 @@
 # base functions and variables
 
 # location where the dotfiles repository is installed
-DOTFILES_DIR=${HOME}/.dotfiles
+DOTFILES_DIR="$(readlink -f $(dirname $0))"
 
 function get_distro
 {

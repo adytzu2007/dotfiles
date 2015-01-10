@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="fishy"
+ZSH_THEME="miloshadzic"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -90,7 +90,38 @@ repo2sm() {
     git submodule add ${repo_url} ${repo_dir}
 }
 
+p4opened() {
+   if [ $# -ne 1 ]; then
+      return 1
+   fi
+
+   client_files=$(p4 opened -c $1 | cut -f1 -d' ' | sed 's/\#[0-9]*$//g')
+
+   client_info=$(p4 client -o)
+
+   client=$(echo ${client_info} | grep "^Client:" | sed -r 's/Client:\s+(.*)/\1/g')
+   root=$(echo ${client_info} | grep "^Root:" | sed -r 's/Root:\s+(.*)/\1/g')
+   views=$(echo ${client_info} | grep "//depot")
+
+   local IFS=$'\n'
+   for view in $(echo ${views}); do
+      IFS=$'\t '
+      echo ${view} | read depot_remote depot_local
+      depot_remote=${depot_remote%/...}
+      depot_remote=${depot_remote#+}
+      depot_local=${depot_local%/...}
+      absolute_local=$(echo ${depot_local} | sed "s,//${client},${root},g")
+      client_files=$(echo ${client_files} | \
+                     sed "s,${depot_remote},${absolute_local},g")
+      IFS=$'\n'
+   done
+
+   echo ${client_files}
+}
+
 meteor() {
     METEOR="${HOME}/work/open-source/meteor/meteor"
     ${METEOR} $@
 }
+
+source ~/.work_env/base.source

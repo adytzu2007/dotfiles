@@ -44,6 +44,7 @@ SYMBOLIC_LINKS+=(["oh-my-zsh"]="${HOME}/.oh-my-zsh")
 SYMBOLIC_LINKS+=(["zshrc"]="${HOME}/.zshrc")
 SYMBOLIC_LINKS+=(["private"]="${HOME}/.private")
 SYMBOLIC_LINKS+=(["gitignore"]="${HOME}/.config/git/ignore")
+SYMBOLIC_LINKS+=(["tmux.conf"]="${HOME}/.tmux.conf")
 
 for link in "${!SYMBOLIC_LINKS[@]}"; do
     IFS=" ";

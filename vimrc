@@ -37,6 +37,8 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'rking/ag.vim'
 Plugin 'hdima/python-syntax'
 Plugin 'wting/rust.vim'
+Plugin 'thynson/Cpp11-Syntax-Support'
+Plugin 'vim-scripts/LargeFile'
 
 " color schemes
 "Plugin 'flazz/vim-colorschemes'
@@ -116,7 +118,7 @@ autocmd FileType vim,markdown let b:noTrimm = 1
 
 autocmd BufWritePre *
   \ if !exists("b:noTrimm") |
-    \ :%s/\s\+$//e |
+  \   :%s/\s\+$//e |
   \ endif
 
 " Jump to last know location in the file on open
@@ -143,7 +145,7 @@ autocmd FileType haskell setlocal noexpandtab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Turn syntax highlighting on
-syntax enable
+syntax on
 
 " Enable 256-color mode
 set t_Co=16
