@@ -52,3 +52,6 @@
 [submodule "vim/bundle/LargeFile"]
 	path = vim/bundle/LargeFile
 	url = https://github.com/vim-scripts/LargeFile.git
+[submodule "vim/bundle/Cpp11-Syntax-Support"]
+	path = vim/bundle/Cpp11-Syntax-Support
+	url = https://github.com/thynson/Cpp11-Syntax-Support.git
