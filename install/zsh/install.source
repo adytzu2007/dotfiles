@@ -3,18 +3,21 @@
 
 install_package "zsh"
 
-default_shell=$(get_default_shell)
-if [[ "${default_shell}" != "zsh" ]]; then
-    answer=$(prompt_user \
-        "Do you want to change your default shell ($default_shell) to zsh?" \
-        "yes")
-    if [[ "${answer}" = "yes" ]]; then
-        debug_print "Changing default shell to zsh"
-        zsh_full_path=$(get_full_path "zsh")
-        chsh -s ${zsh_full_path}
+if which zsh > /dev/null; then
+    default_shell=$(get_default_shell)
+    if [[ "${default_shell}" != "zsh" ]]; then
+        answer=$(prompt_user \
+            "Do you want to change your default shell ($default_shell) to zsh?" \
+            "yes")
+        if [[ "${answer}" = "yes" ]]; then
+            debug_print "Changing default shell to zsh"
+            zsh_full_path=$(get_full_path "zsh")
+            chsh -s ${zsh_full_path}
+        fi
     fi
+    make_link "oh-my-zsh" "${HOME}/.oh-my-zsh"
+    make_link "zshrc" "${HOME}/.zshrc"
+    make_link "private" "${HOME}/.private"
+else
+    debug_print "zsh is not installed. Skipping zsh files."
 fi
-
-SYMBOLIC_LINKS+=(["oh-my-zsh"]="${HOME}/.oh-my-zsh")
-SYMBOLIC_LINKS+=(["zshrc"]="${HOME}/.zshrc")
-SYMBOLIC_LINKS+=(["private"]="${HOME}/.private")

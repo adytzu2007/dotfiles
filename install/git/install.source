@@ -2,6 +2,11 @@
 # git
 
 install_package "git"
+install_package "meld"
 
-SYMBOLIC_LINKS+=(["gitignore"]="${HOME}/.config/git/ignore")
-SYMBOLIC_LINKS+=(["gitconfig"]="${HOME}/.gitconfig")
+if which git > /dev/null; then
+    make_link "gitignore" "${HOME}/.config/git/ignore"
+    make_link "gitconfig" "${HOME}/.gitconfig"
+else
+    debug_print "git is not installed. Skipping git files."
+fi

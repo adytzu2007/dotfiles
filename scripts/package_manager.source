@@ -24,6 +24,14 @@ function install_package
         debug_print "Installing package ${package}"
         eval "${packages[$distro]} ${package}"
     else
+        debug_print "Don't know how to install package"
+        echo "Please provide the command for installing the package."
+        read -p "Command (empty string to skip):" command
+        if [[ -n ${command} ]]; then
+            eval ${command}
+            return 0
+        fi
+
         return 1
     fi
 

@@ -3,7 +3,13 @@
 
 install_package "gvim"
 
-SYMBOLIC_LINKS+=(["vim"]="${HOME}/.vim")
-SYMBOLIC_LINKS+=(["vimrc"]="${HOME}/.vimrc")
-SYMBOLIC_LINKS+=(["vimrc"]=" ${HOME}/.gvimrc")
-SYMBOLIC_LINKS+=(["vimrc"]=" ${HOME}/.nvimrc")
+if which vim > /dev/null; then
+    make_link "vim" "${HOME}/.vim"
+    make_link "vimrc" "${HOME}/.vimrc"
+    make_link "vimrc" "${HOME}/.gvimrc"
+    make_link "vimrc" "${HOME}/.nvimrc"
+
+    vim +PluginInstall +qall
+else
+    debug_print "vim is not installed. Skipping vim files."
+fi

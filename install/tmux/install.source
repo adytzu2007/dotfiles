@@ -3,4 +3,8 @@
 
 install_package "tmux"
 
-SYMBOLIC_LINKS+=(["tmux.conf"]="${HOME}/.tmux.conf")
+if which tmux > /dev/null; then
+    make_link "tmux.conf" "${HOME}/.tmux.conf"
+else
+    debug_print "tmux is not installed. Skipping tmux files."
+fi

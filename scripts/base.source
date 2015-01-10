@@ -3,9 +3,6 @@
 
 # base functions and variables
 
-# location where the dotfiles repository is installed
-DOTFILES_DIR="$(readlink -f $(dirname $0))"
-
 function get_distro
 {
     if [[ -f /etc/arch-release ]]; then
@@ -76,4 +73,32 @@ function debug_print
 function debug_off
 {
     unset __DEBUG_PRINT__
+}
+
+function make_link
+{
+    if [[ $# -ne 2 ]]; then
+        debug_print "Invalid invocation of make_link"
+        return 1
+    fi
+
+    src=${PACKAGE_DIR}/$1
+    dst=$2
+
+    if [[ -e ${dst} ]]; then
+        echo "Link destination already exists."
+        answer=$(prompt_user \
+            "Are you sure you want to overwrite? (yes/no)" \
+            "yes")
+        if [[ ${answer} = "yes" ]]; then
+            echo "Moving ${dst} to ${dst}.bak"
+            mv ${dst} ${dst}.bak
+        else
+            continue
+        fi
+    fi
+
+    debug_print "Linking ${src} to ${dst}"
+    mkdir -p $(dirname ${dst})
+    ln -s -f ${src} ${dst}
 }
