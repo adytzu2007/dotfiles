@@ -1,0 +1,24 @@
+[user]
+	name = Adrian Bacircea
+	email = adrian.bacircea@gmail.com
+[color]
+    diff = auto
+[merge]
+    tool = meld
+[mergetool]
+    prompt = false
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[oh-my-zsh]
+    hide-status = 1
+[core]
+    preloadindex = true
+    fscache = true
+	autocrlf = false
+	filemode = false
+[branch]
+	autosetuprebase = always
+[push]
+	default = simple
