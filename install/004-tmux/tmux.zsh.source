@@ -6,6 +6,6 @@ refresh_env() {
     fi
 
     variable=$1
-    value = $(tmux show-environment ${variable} | grep -v '^-' | cut -f2- -d'=')
-    echo ${value}
+    value=$(tmux show-environment ${variable} | grep -v '^-' | cut -f2- -d'=')
+    eval "export ${variable}=${value}"
 }
