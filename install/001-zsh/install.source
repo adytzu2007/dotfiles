@@ -32,7 +32,8 @@ make_zshrcd_link() {
     fi
 
     source=$1
-    destination=${$(basename $1)%%.zsh.source}.source
+    destination=$(basename $1)
+    destination=${destination%%.zsh.source}.source
 
     make_link "${source}" "${ZSHRCD}/${destination}"
 }

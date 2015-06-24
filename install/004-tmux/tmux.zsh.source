@@ -1,0 +1,11 @@
+# vim: set ft=zsh:
+
+refresh_env() {
+    if [ $# -ne 1 ]; then
+        return 1
+    fi
+
+    variable=$1
+    value = $(tmux show-environment ${variable} | grep -v '^-' | cut -f2- -d'=')
+    echo ${value}
+}
