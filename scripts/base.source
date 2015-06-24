@@ -90,17 +90,14 @@ function make_link
         answer=$(prompt_user \
             "Are you sure you want to overwrite? (yes/no)" \
             "yes")
-        if [[ ${answer} = "yes" ]]; then
-            echo "Moving ${dst} to ${dst}.bak"
-            mv ${dst} ${dst}.bak
-        else
+        if [[ ${answer} != "yes" ]]; then
             return 1
         fi
     fi
 
     debug_print "Linking ${src} to ${dst}"
     mkdir -p $(dirname ${dst})
-    ln -s -f ${src} ${dst}
+    ln -s -f --backup=numbered --sufix=bak ${src} ${dst}
 
     return 0
 }
