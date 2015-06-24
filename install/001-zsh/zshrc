@@ -94,4 +94,4 @@ if [[ -d ${HOME}/.shellrc/zshrc.d ]]; then
     for file in ${HOME}/.shellrc/zshrc.d/*.source; do
         source ${file}
     done
-done
+fi
