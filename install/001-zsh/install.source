@@ -18,6 +18,21 @@ if which zsh > /dev/null; then
     make_link "oh-my-zsh" "${HOME}/.oh-my-zsh"
     make_link "zshrc" "${HOME}/.zshrc"
     make_link "private" "${HOME}/.private"
+    mkdir -p "${HOME}/.shellrc/zshrc.d"
 else
     debug_print "zsh is not installed. Skipping zsh files."
 fi
+
+make_zshrcd_link() {
+    ZSHRCD="${HOME}/.shellrc/zshrc.d"
+    if [[ ! -d ${ZSHRCD} ]]; then
+        return 1
+    elif [[ $# -ne 1 ]]; then
+        return 1
+    fi
+
+    source=$1
+    destination=${$(basename $1)%%.zsh.source}.source
+
+    make_link "${source}" "${ZSHRCD}/${destination}"
+}
