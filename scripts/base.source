@@ -97,7 +97,7 @@ function make_link
 
     debug_print "Linking ${src} to ${dst}"
     mkdir -p $(dirname ${dst})
-    ln -s -f ${src} ${dst}
+    ln -s -f -n ${src} ${dst}
 
     return 0
 }
