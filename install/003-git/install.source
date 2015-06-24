@@ -5,4 +5,4 @@
 install_package "meld"
 
 make_link "gitignore" "${HOME}/.config/git/ignore"
-make_link "gitconfig" "${HOME}/.gitconfig"
+make_link "gitconfig" "${HOME}/.config/git/config"
