@@ -39,6 +39,7 @@ Plugin 'hdima/python-syntax'
 Plugin 'wting/rust.vim'
 Plugin 'thynson/Cpp11-Syntax-Support'
 Plugin 'vim-scripts/LargeFile'
+Plugin 'thinca/vim-localrc'
 
 " color schemes
 "Plugin 'flazz/vim-colorschemes'
