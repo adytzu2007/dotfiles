@@ -29,17 +29,19 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 Plugin 'SirVer/ultisnips'
-Plugin 'elzr/vim-json'
+"Plugin 'elzr/vim-json'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'mhinz/vim-signify'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'rking/ag.vim'
-Plugin 'hdima/python-syntax'
-Plugin 'wting/rust.vim'
-Plugin 'thynson/Cpp11-Syntax-Support'
-Plugin 'vim-scripts/LargeFile'
+"Plugin 'plasticboy/vim-markdown'
+"Plugin 'rking/ag.vim'
+"Plugin 'hdima/python-syntax'
+"Plugin 'wting/rust.vim'
+"Plugin 'thynson/Cpp11-Syntax-Support'
+"Plugin 'vim-scripts/LargeFile'
 Plugin 'thinca/vim-localrc'
+Plugin 'honza/vim-snippets'
+Plugin 'sheerun/vim-polyglot'
 
 " color schemes
 "Plugin 'flazz/vim-colorschemes'
@@ -129,6 +131,7 @@ autocmd BufReadPost *
   \ endif
 " Parse .g files as antlr files
 autocmd BufRead,BufNewFile *.g set filetype=antlr3
+autocmd BufRead,BufNewFile *.sc set filetype=python
 
 autocmd FileType text setlocal textwidth=78
 
@@ -329,3 +332,9 @@ augroup filetype_markdown
     autocmd FileType mkd onoremap ih :<c-u>execute "normal! ?^[-=]\\{2,}$\r:nohlsearch\rkvg_"<cr>
     autocmd FileType mkd onoremap ah :<c-u>execute "normal! ?^[-=]\\{2,}$\r:nohlsearch\rg_vk0"<cr>
 augroup END
+
+let g:UltiSnipsExpandTrigger="``"
+let g:UltiSnipsJumpForwardTrigger="<PageDown>"
+let g:UltiSnipsJumpBackwardTrigger="<PageUp>"
+
+let g:UltiSnipsEditSplit="normal"
