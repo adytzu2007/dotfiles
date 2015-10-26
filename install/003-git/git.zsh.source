@@ -1,0 +1,9 @@
+gitopened() {
+    if [[ $# -gt 0 ]]; then
+        COMMIT="$1^..$1"
+    else
+        COMMIT="master"
+    fi
+
+    git --no-pager diff --name-only ${COMMIT}
+}
