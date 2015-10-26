@@ -26,7 +26,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load?
 # (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(archlinux history-substring-search)
+plugins=(archlinux history-substring-search ssh-agent)
 
 . $ZSH/oh-my-zsh.sh
 
@@ -52,6 +52,8 @@ fi
 #alias gx='gitx --all'
 #alias got='git '
 #alias get='git '
+
+alias ssh='TERM=xterm ssh'
 
 # qfind - used to quickly find files that contain a string in a directory
 qfind () {
