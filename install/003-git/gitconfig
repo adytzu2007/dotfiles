@@ -21,3 +21,6 @@
 	default = simple
 [status]
 	showUntrackedFiles = no
+[user]
+	email = adrian.bacircea@gmail.com
+	name = Adrian Băcîrcea
