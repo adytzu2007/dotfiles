@@ -8,6 +8,12 @@ function get_distro
     if [[ -f /etc/arch-release ]]; then
         echo "archlinux"
         return 0
+    elif [[ -f /etc/lsb-release ]]; then
+        . /etc/lsb-release
+        if  [[ "$DISTRIB_ID" = "Ubuntu" ]]; then
+            echo "ubuntu"
+            return 0
+        fi
     fi
 
     echo "unknown"

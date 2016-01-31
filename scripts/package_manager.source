@@ -12,6 +12,13 @@ packages["archlinux,tmux"]="tmux"
 packages["archlinux,zsh"]="zsh"
 packages["archlinux,gvim"]="gvim"
 packages["archlinux,meld"]="meld"
+packages["ubuntu"]="sudo apt-get -y install"
+packages["ubuntu,git"]="git"
+packages["ubuntu,tmux"]="tmux"
+packages["ubuntu,zsh"]="zsh"
+packages["ubuntu,gvim"]="vim-gnome"
+packages["ubuntu,meld"]="meld"
+
 
 function install_package
 {
