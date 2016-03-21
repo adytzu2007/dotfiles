@@ -1,0 +1,10 @@
+# vim: filetype=sh
+# emacs
+
+install_package "emacs"
+
+if which tmux > /dev/null; then
+    make_link "spacemacs" "${HOME}/.emacs.d"
+else
+    debug_print "tmux is not installed. Skipping tmux files."
+fi
