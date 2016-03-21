@@ -5,6 +5,7 @@ install_package "emacs"
 
 if which emacs > /dev/null; then
     make_link "spacemacs" "${HOME}/.emacs.d"
+    make_link "emacs" "${HOME}/.spacemacs"
     make_zshrcd_link "emacs.zsh.source"
 else
     debug_print "emacs is not installed. Skipping emacs files."
