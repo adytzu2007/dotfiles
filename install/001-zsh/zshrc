@@ -99,6 +99,8 @@ untar() {
    return 0
 }
 
+alias vim='nvim'
+
 if [[ -d ${HOME}/.shellrc/zshrc.d ]]; then
     for file in ${HOME}/.shellrc/zshrc.d/*.source; do
         source ${file}
