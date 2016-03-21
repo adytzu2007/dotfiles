@@ -314,11 +314,11 @@ endif
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-noremap <Up> <nop>
-noremap <Down> <nop>
-noremap <Left> <nop>
-noremap <Right> <nop>
-inoremap jk <Esc>
+nnoremap <leader>cli :.s/#include [<"]\([^">]\+\)[">]/#include "\1"/<cr>
+nnoremap <leader>csi :.s/#include [<"]\([^">]\+\)[">]/#include <\1>/<cr>
+
+vnoremap cli :s/\%V#include [<"]\([^">]\+\)[">]/#include "\1"/\|'<,'>sort u<cr>
+vnoremap csi :s/\%V#include [<"]\([^">]\+\)[">]/#include <\1>/\|'<,'>sort u<cr>
 
 augroup filetype_html
     autocmd!
