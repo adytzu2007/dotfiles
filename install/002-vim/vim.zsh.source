@@ -6,14 +6,7 @@
 #
 ###########################################################################
 
-alias gs='git status '
-alias ga='git add '
-alias gc='git commit'
-alias gd='git diff'
-alias gb='git branch '
-alias gic='git checkout '
-alias gk='gitk --all&'
-alias gx='gitx --all'
+alias vim='nvim'
 
 
 ###########################################################################
@@ -29,20 +22,4 @@ alias gx='gitx --all'
 # Functions
 #
 ###########################################################################
-
-#
-# gitopened - view all changed files by a commit
-#
-# if no commit is provided, view all changed files
-# since master
-#
-gitopened() {
-    if [[ $# -gt 0 ]]; then
-        COMMIT="$1^..$1"
-    else
-        COMMIT="master"
-    fi
-
-    git --no-pager diff --name-only ${COMMIT}
-}
 

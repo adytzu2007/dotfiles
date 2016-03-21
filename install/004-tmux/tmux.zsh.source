@@ -1,14 +1,45 @@
 # vim: set ft=zsh:
 
+###########################################################################
+#
+# Aliases
+#
+###########################################################################
+
+alias tmux='TERM=xterm-256color tmux'
+
+
+###########################################################################
+#
+# Exports
+#
+###########################################################################
+
+
+
+###########################################################################
+#
+# Functions
+#
+###########################################################################
+
+#
+# refresh_env - set an environment variable to the value stored in the
+#               tmux environment
+#
+# Example: refresh_env DISPLAY
+# Note: useful when you reconnect to a tmux session and want X forwarding
+#
 refresh_env() {
     if [ $# -ne 1 ]; then
+        echo "usage: {0} env_var [env_var+]"
         return 1
     fi
 
-    variable=$1
-    if value=$(tmux show-environment ${variable} | grep -v '^-' | cut -f2- -d'='); then
-        if [[ -n ${value} ]]; then
-            eval "export ${variable}=${value}"
+    for var in "$@"; do
+        if val=$(tmux show-environment ${var} | grep -v '^-' | cut -f2- -d'=');
+        then
+            if [[ -n ${val} ]]; then eval "export ${var}=${val}"; fi
         fi
-    fi
+    done
 }

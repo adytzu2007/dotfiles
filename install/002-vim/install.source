@@ -11,6 +11,7 @@ if which vim > /dev/null; then
     make_link "." "${HOME}/.config/nvim"
     make_link "vimrc" "${HOME}/.vimrc"
     make_link "vimrc" "${HOME}/.gvimrc"
+    make_zshrcd_link "vim.zsh.source"
 
     vim +PluginInstall +qall
 else

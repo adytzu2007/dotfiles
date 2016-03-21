@@ -3,8 +3,9 @@
 
 install_package "emacs"
 
-if which tmux > /dev/null; then
+if which emacs > /dev/null; then
     make_link "spacemacs" "${HOME}/.emacs.d"
+    make_zshrcd_link "emacs.zsh.source"
 else
-    debug_print "tmux is not installed. Skipping tmux files."
+    debug_print "emacs is not installed. Skipping emacs files."
 fi
