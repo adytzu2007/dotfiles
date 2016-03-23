@@ -338,3 +338,7 @@ let g:UltiSnipsJumpForwardTrigger="<PageDown>"
 let g:UltiSnipsJumpBackwardTrigger="<PageUp>"
 
 let g:UltiSnipsEditSplit="normal"
+
+set diffopt+=iwhite
+
+set diffexpr=""

@@ -1,26 +1,34 @@
 [color]
     diff = auto
 [merge]
-    tool = meld
+    tool = vimdiff
 [mergetool]
     prompt = false
 [diff]
-    tool = meld
+    tool = vimdiff
 [difftool]
     prompt = false
+
 [oh-my-zsh]
     hide-status = 1
 [core]
     preloadindex = true
     fscache = true
-	autocrlf = false
-	filemode = false
+    autocrlf = false
+    filemode = false
 [branch]
-	autosetuprebase = always
+    autosetuprebase = always
+
 [push]
-	default = simple
+    default = simple
 [status]
-	showUntrackedFiles = no
+    showUntrackedFiles = no
+
 [user]
-	email = adrian.bacircea@gmail.com
-	name = Adrian Băcîrcea
+    email = adrian.bacircea@gmail.com
+    name = Adrian Băcîrcea
+
+[difftool "vimdiff"]
+    path = nvim
+[mergetool "vimdiff"]
+    path = nvim

@@ -22,6 +22,12 @@ if [[ -f /etc/arch-release ]]; then
     plugins+=( archlinux )
 fi
 
+if [[ -f /usr/bin/nvim ]]; then
+    export EDITOR=nvim
+elif [[ -f /usr/bin/vim ]]; then
+    export EDITOR=vim
+fi
+
 . $ZSH/oh-my-zsh.sh
 
 # Put any proprietary or private functions/values in ~/.private,
