@@ -30,6 +30,12 @@ fi
 
 . $ZSH/oh-my-zsh.sh
 
+zstyle ':completion:*' hosts off
+zstyle ':completion:*' accounts off
+zstyle ':completion:*' my-accounts off
+zstyle ':completion:*' groups off
+zstyle ':completion:*' accept-exact-dirs true
+
 # Put any proprietary or private functions/values in ~/.private,
 # and this will source them
 if [ -f $HOME/.private ]; then
