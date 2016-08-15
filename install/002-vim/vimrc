@@ -342,3 +342,16 @@ let g:UltiSnipsEditSplit="normal"
 set diffopt+=iwhite
 
 set diffexpr=""
+
+if exists('g:loaded_workrc')
+    finish
+endif
+let g:loaded_workrc = 1
+
+function! SetupEnvironment()
+    for file in split(glob('~/.work_env/*.vimrc'), '\n')
+        exe 'source' file
+    endfor
+endfunction
+
+autocmd! BufNewFile,BufReadPost * call SetupEnvironment()
