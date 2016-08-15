@@ -162,7 +162,7 @@ colorscheme solarized
 
 " Highlight characters that go over 80 columns
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+match OverLength /\%88v.\+/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
