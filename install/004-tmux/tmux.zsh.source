@@ -39,7 +39,12 @@ refresh_env() {
     for var in "$@"; do
         if val=$(tmux show-environment ${var} | grep -v '^-' | cut -f2- -d'=');
         then
-            if [[ -n ${val} ]]; then eval "export ${var}=${val}"; fi
+            if [[ -n ${val} ]]; then
+                eval "export ${var}=${val}"
+            else
+                eval "unset ${var}"
+            fi
+
         fi
     done
 }
