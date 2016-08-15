@@ -118,9 +118,9 @@ filetype plugin indent on
 " set up filter for files that we don't want trimming on
 autocmd FileType vim,markdown let b:noTrimm = 1
 
-autocmd BufWritePre *
+autocmd BufWritePre * silent!
   \ if !exists("b:noTrimm") |
-  \   :%s/\s\+$//e |
+  \   :%s/\s\+$//e|'' |
   \ endif
 
 " Jump to last know location in the file on open
