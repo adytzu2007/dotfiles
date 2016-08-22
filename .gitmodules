@@ -7,3 +7,6 @@
 [submodule "spacemacs"]
 	path = install/005-emacs/spacemacs
 	url = https://github.com/syl20bnr/spacemacs.git
+[submodule "install/004-tmux/tmuxinator"]
+	path = install/004-tmux/tmuxinator
+	url = https://github.com/tmuxinator/tmuxinator.git
