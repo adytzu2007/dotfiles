@@ -7,21 +7,22 @@
 declare -A packages
 
 packages["archlinux"]="sudo pacman -S --noconfirm --needed"
+packages["archlinux,emacs"]="emacs"
 packages["archlinux,git"]="git"
-packages["archlinux,tmux"]="tmux"
-packages["archlinux,zsh"]="zsh"
 packages["archlinux,gvim"]="gvim"
 packages["archlinux,meld"]="meld"
 packages["archlinux,neovim"]="neovim"
 packages["archlinux,python-neovim"]="python-neovim"
 packages["archlinux,python2-neovim"]="python2-neovim"
-packages["archlinux,emacs"]="emacs"
+packages["archlinux,ruby"]="ruby"
+packages["archlinux,tmux"]="tmux"
+packages["archlinux,zsh"]="zsh"
 packages["ubuntu"]="sudo apt-get -y install"
 packages["ubuntu,git"]="git"
-packages["ubuntu,tmux"]="tmux"
-packages["ubuntu,zsh"]="zsh"
 packages["ubuntu,gvim"]="vim-gnome"
 packages["ubuntu,meld"]="meld"
+packages["ubuntu,tmux"]="tmux"
+packages["ubuntu,zsh"]="zsh"
 
 
 function install_package
