@@ -16,6 +16,8 @@ DISABLE_AUTO_TITLE="true"
 # to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+
 # Which plugins would you like to load?
 plugins=(history history-substring-search ssh-agent emacs)
 if [[ -f /etc/arch-release ]]; then
