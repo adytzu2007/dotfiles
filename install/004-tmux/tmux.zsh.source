@@ -6,8 +6,6 @@
 #
 ###########################################################################
 
-alias tmux='TERM=xterm-256color tmux'
-
 
 ###########################################################################
 #
@@ -15,7 +13,7 @@ alias tmux='TERM=xterm-256color tmux'
 #
 ###########################################################################
 
-export TERM=xterm-256color
+export TERM=screen-256color
 
 for gem_dir in ${HOME}/.gem/ruby/*/bin; do
     path+=${gem_dir}
