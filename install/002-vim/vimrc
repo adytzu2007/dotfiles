@@ -323,6 +323,7 @@ nnoremap <leader>csi :.s/#include [<"]\([^">]\+\)[">]/#include <\1>/<cr>
 
 vnoremap cli :s/\%V#include [<"]\([^">]\+\)[">]/#include "\1"/\|'<,'>sort u<cr>
 vnoremap csi :s/\%V#include [<"]\([^">]\+\)[">]/#include <\1>/\|'<,'>sort u<cr>
+vnoremap sc :s/\%V\/\/.*$//<cr>
 
 augroup filetype_html
     autocmd!
@@ -352,10 +353,6 @@ if exists('g:loaded_workrc')
 endif
 let g:loaded_workrc = 1
 
-function! SetupEnvironment()
-    for file in split(glob('~/.work_env/*.vimrc'), '\n')
-        exe 'source' file
-    endfor
-endfunction
-
-autocmd BufNewFile,BufReadPost * call SetupEnvironment()
+for file in split(glob('~/.work_env/*.vimrc'), '\n')
+    exe 'source' file
+endfor
