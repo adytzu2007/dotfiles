@@ -19,7 +19,7 @@ COMPLETION_WAITING_DOTS="true"
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 # Which plugins would you like to load?
-plugins=(history history-substring-search ssh-agent emacs safe-paste)
+plugins=(history history-substring-search ssh-agent safe-paste)
 if [[ -f /etc/arch-release ]]; then
     plugins+=( archlinux )
 fi
