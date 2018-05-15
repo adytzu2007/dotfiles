@@ -26,7 +26,7 @@
 
 [user]
     email = adrian.bacircea@gmail.com
-	name = Adrian Bacircea
+    name = Adrian Bacircea
 
 [difftool "vimdiff"]
     path = nvim
