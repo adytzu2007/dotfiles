@@ -13,7 +13,7 @@
 #
 ###########################################################################
 
-export TERM=screen-256color
+alias tmux='tmux -2'
 
 for gem_dir in ${HOME}/.gem/ruby/*/bin; do
     path+=${gem_dir}
