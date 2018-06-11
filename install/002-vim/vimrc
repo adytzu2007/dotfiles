@@ -15,41 +15,76 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 0. Vundle
+" 0. dein
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible
-filetype off
+if &compatible
+    set nocompatible               " Be iMproved
+endif
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Required:
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 
-" Vundle should handle itself
-Plugin 'gmarik/Vundle.vim'
+" Required:
+if dein#load_state('~/.vim/dein')
+    call dein#begin('~/.vim/dein')
 
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'bling/vim-airline'
-Plugin 'SirVer/ultisnips'
-"Plugin 'elzr/vim-json'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'mhinz/vim-signify'
-"Plugin 'plasticboy/vim-markdown'
-"Plugin 'rking/ag.vim'
-"Plugin 'hdima/python-syntax'
-"Plugin 'wting/rust.vim'
-"Plugin 'thynson/Cpp11-Syntax-Support'
-"Plugin 'vim-scripts/LargeFile'
-Plugin 'honza/vim-snippets'
-Plugin 'sheerun/vim-polyglot'
+    " Let dein manage dein
+    " Required:
+    call dein#add('~/.dein/repos/github.com/Shougo/dein.vim')
 
-" color schemes
-"Plugin 'flazz/vim-colorschemes'
-"Plugin 'vim-scripts/ScrollColors'
-"Plugin 'godlygeek/csapprox'
-Plugin 'altercation/vim-colors-solarized'
+    call dein#add('Shougo/deoplete.nvim')
+    if !has('nvim')
+        call dein#add('roxma/nvim-yarp')
+        call dein#add('roxma/vim-hug-neovim-rpc')
+    endif
 
-call vundle#end()
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('ap/vim-buftabline')
+
+    call dein#add('morhetz/gruvbox')
+
+    call dein#add('autozimu/LanguageClient-neovim', { 
+        \ 'rev': 'next',
+        \ 'build': 'bash install.sh',
+        \ })
+
+    call dein#add('junegunn/fzf') " Multi-entry selection UI
+    call dein#add('itchyny/lightline.vim')
+    "call dein#add('vim-syntastic/syntastic')
+
+    " Required:
+    call dein#end()
+    call dein#save_state()
+endif
+
+" Required:
 filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"    call dein#install()
+"endif
+
+
+let g:deoplete#enable_at_startup = 1
+
+let g:syntastic_cpp_clang_check_post_args = ''
+let g:syntastic_cpp_checkers = ['clang_check']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = {
+    \ 'mode': 'passive'
+    \ }
+
+let g:LanguageClient_serverCommands = {
+    \ 'cpp': ['cquery', '--log-file=/tmp/cquery.log'],
+    \ }
+let g:LanguageClient_loadSettings = 1
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 1. General
