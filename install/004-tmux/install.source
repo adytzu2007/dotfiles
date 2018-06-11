@@ -1,16 +1,11 @@
 # vim: filetype=sh
 # tmux
 
-install_package "ruby" # needed for tmuxinator
 install_package "tmux"
 
 if which tmux > /dev/null; then
     make_link "tmux.conf" "${HOME}/.tmux.conf"
     make_zshrcd_link "tmux.zsh.source"
-    pushd ${PACKAGE_DIR}/tmuxinator
-    gem install tmuxinator
-    popd
-    make_link "tmuxinator/completion/tmuxinator.zsh" "${HOME}/.tmuxinator.zsh"
 else
     debug_print "tmux is not installed. Skipping tmux files."
 fi

@@ -1,12 +1,6 @@
 [submodule "install/001-zsh/oh-my-zsh"]
 	path = install/001-zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
-[submodule "install/002-vim/bundle/Vundle.vim"]
-	path = install/002-vim/bundle/Vundle.vim
-	url = https://github.com/gmarik/Vundle.vim.git
-[submodule "spacemacs"]
-	path = install/005-emacs/spacemacs
-	url = https://github.com/syl20bnr/spacemacs.git
-[submodule "install/004-tmux/tmuxinator"]
-	path = install/004-tmux/tmuxinator
-	url = https://github.com/tmuxinator/tmuxinator.git
+[submodule "install/002-vim/dein/repos/github.com/Shougo/dein.vim"]
+	path = install/002-vim/dein/repos/github.com/Shougo/dein.vim
+	url = https://github.com/Shougo/dein.vim
