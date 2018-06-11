@@ -6,14 +6,13 @@ install_package "neovim"
 install_package "python-neovim"
 install_package "python2-neovim"
 
-if which vim > /dev/null; then
+if which nvim > /dev/null; then
     make_link "." "${HOME}/.vim"
     make_link "." "${HOME}/.config/nvim"
     make_link "vimrc" "${HOME}/.vimrc"
-    make_link "vimrc" "${HOME}/.gvimrc"
     make_zshrcd_link "vim.zsh.source"
 
-    vim +PluginInstall +qall
+    vim '+call dein#install()' +qall
 else
     debug_print "vim is not installed. Skipping vim files."
 fi

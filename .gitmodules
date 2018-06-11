@@ -3,4 +3,4 @@
 	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule "install/002-vim/dein/repos/github.com/Shougo/dein.vim"]
 	path = install/002-vim/dein/repos/github.com/Shougo/dein.vim
-	url = https://github.com/Shougo/dein.vim
+	url = https://github.com/Shougo/dein.vim.git
