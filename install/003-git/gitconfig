@@ -8,7 +8,6 @@
     tool = vimdiff
 [difftool]
     prompt = false
-
 [oh-my-zsh]
     hide-status = 1
 [core]
@@ -18,16 +17,10 @@
     filemode = false
 [branch]
     autosetuprebase = always
-
 [push]
     default = simple
 [status]
     showUntrackedFiles = no
-
-[user]
-    email = adrian.bacircea@gmail.com
-    name = Adrian Bacircea
-
 [difftool "vimdiff"]
     path = nvim
 [mergetool "vimdiff"]

@@ -15,7 +15,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 0. dein
+" Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if &compatible
     set nocompatible               " Be iMproved
@@ -32,26 +32,12 @@ if dein#load_state('~/.vim/dein')
     " Required:
     call dein#add('~/.dein/repos/github.com/Shougo/dein.vim')
 
-    call dein#add('Shougo/deoplete.nvim')
-    if !has('nvim')
-        call dein#add('roxma/nvim-yarp')
-        call dein#add('roxma/vim-hug-neovim-rpc')
-    endif
-
-    call dein#add('Shougo/neosnippet.vim')
-    call dein#add('Shougo/neosnippet-snippets')
     call dein#add('ap/vim-buftabline')
 
+    " Theme
     call dein#add('morhetz/gruvbox')
 
-    call dein#add('autozimu/LanguageClient-neovim', { 
-        \ 'rev': 'next',
-        \ 'build': 'bash install.sh',
-        \ })
-
-    call dein#add('junegunn/fzf') " Multi-entry selection UI
     call dein#add('itchyny/lightline.vim')
-    "call dein#add('vim-syntastic/syntastic')
 
     " Required:
     call dein#end()
@@ -62,42 +48,16 @@ endif
 filetype plugin indent on
 syntax enable
 
-" If you want to install not installed plugins on startup.
-"if dein#check_install()
-"    call dein#install()
-"endif
-
-
-let g:deoplete#enable_at_startup = 1
-
-let g:syntastic_cpp_clang_check_post_args = ''
-let g:syntastic_cpp_checkers = ['clang_check']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map = {
-    \ 'mode': 'passive'
-    \ }
-
-let g:LanguageClient_serverCommands = {
-    \ 'cpp': ['cquery', '--log-file=/tmp/cquery.log'],
-    \ }
-let g:LanguageClient_loadSettings = 1
-
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 1. General
+" General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Activate autowrite
-set autowrite
-" Activate autoread
-set autoread
 
 " Automatically use the current file's directory as the working directory
 set autochdir
 
+" Prevent 'Hit ENTER to continue message'
+set cmdheight=2
 set shortmess=atToOI
 
 " Directories for backup and swap
@@ -107,11 +67,10 @@ set directory=/tmp
 " More tabs
 set tabpagemax=20
 
-" Persistent undo
-set undodir=~/.vim_runtime/undodir
-set undofile
-set undolevels=1000  " maximum number of changes that can be undone
-set undoreload=10000
+set undofile " Enable persistent undo
+set undodir=. " Store undo buffer with edited files
+set undolevels=1000  " Maximum number of changes that can be undoed
+set undoreload=100000 " Maximum number of lines to store to undo a file reload
 
 " Disable sounds
 set noerrorbells
@@ -119,11 +78,10 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Highlight current line
-"set cursorline
-
+" Disable mouse support
 set mouse=""
 
+" Hide buffer instead of closing it when another file is opened
 set hidden
 
 " Activate enhanced command completion
@@ -138,31 +96,18 @@ set showcmd
 set encoding=utf-8
 set termencoding=utf-8
 
+" Enable local vim configuration files
+set exrc
+set secure
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 2. Events
+" Events
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Turn file type detection on
 filetype plugin on
 filetype plugin indent on
-
-" Trim trailing whitespaces on save
-" set up filter for files that we don't want trimming on
-autocmd FileType vim,markdown let b:noTrimm = 1
-
-autocmd BufWritePre * silent!
-  \ if !exists("b:noTrimm") |
-  \   :%s/\s\+$//e |
-  \ endif
-
-" Jump to last know location in the file on open
-autocmd BufReadPost *
-  \ if line ("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal g`\"" |
-  \ endif
 
 autocmd BufRead,BufNewFile *.g set filetype=antlr3
 autocmd BufRead,BufNewFile *.sc set filetype=python
@@ -170,47 +115,53 @@ autocmd BufRead,BufNewFile *
   \ if getline(1) =~ '^# A Perforce \(.*\) Specification.$' |
   \   :set filetype=perforce |
   \ endif
+autocmd BufRead,BufNewFile *
+  \ if getline(2) =~ '^Change:\t' |
+  \   :set filetype=perforce |
+  \ endif
 
 autocmd FileType text setlocal textwidth=78
+autocmd FileType perforce setlocal textwidth=78
 
 " we don't want tabs to expand to spaces for certain files
 autocmd FileType make setlocal noexpandtab
 autocmd FileType haskell setlocal noexpandtab
 autocmd FileType perforce setlocal noexpandtab
 
-" enable auto complete
-"set ofu=syntaxcomplete#Complete
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 3. Theme/Colors
+" Theme/Colors/UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Turn syntax highlighting on
-syntax on
 
-" Enable 256-color mode
-set t_Co=16
+if has('termguicolors')
+    set termguicolors
+endif
+
+colorscheme gruvbox
 set background=dark
-colorscheme solarized
+let g:lightline = {
+    \ 'colorscheme': 'gruvbox',
+    \ 'separator': {
+        \ 'left': '', 
+        \ 'right': '',
+        \ },
+    \ 'subseparator': {
+        \ 'left': '', 
+        \ 'right': '',
+        \ }
+    \ }
 
 " Highlight characters that go over 80 columns
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%88v.\+/
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 4. ViM UI
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Setup status line
-" set statusline=%<%f\ %y%h%m%r%=%-24(0x%02B\(%03b\)\ \L\:%l/%L\ %c%V%)\ %P
-set laststatus=2 " last windows always has a statusline
-
-" always show info along bottom
-set ruler
+" Highlight trailing shitespace
+highlight ExtraWhitespace ctermbg=red ctermfg=white guibg=#592929
+call matchadd('ExtraWhitespace', '\s\+$')
+call matchadd('ExtraWhitespace', '\s\+$\| \+\ze\t')
+call matchadd('ExtraWhitespace', '[^\t]\zs\t\+')
 
 " Ignore case when searching
 set ignorecase
@@ -226,7 +177,7 @@ set showmatch
 set mat=2
 
 " Highlight current line
-set cul
+set cursorline
 
 " Show line numbers
 set number
@@ -237,11 +188,8 @@ set splitright
 set ttyfast
 set lazyredraw
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 5. Text Formatting/Layout
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set diffopt+=iwhite
+set diffexpr=""
 
 " Activate auto-indent
 set autoindent
@@ -249,17 +197,10 @@ set smartindent
 set cindent
 set cinoptions=g-1
 
-" Set tab and indent width
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
 " Expand tabs to spaces
 set expandtab
 
-set encoding=utf-8
-
-set backspace=2
-
+" Don't wrap
 set nowrap
 set textwidth=0
 set wrapmargin=0
@@ -267,127 +208,54 @@ set wrapmargin=0
 " Mark tabs and spaces
 set list listchars=tab:»\ ,trail:·,extends:»,precedes:«
 
-" Add modeline functionality
-set modeline
-
-if has('gui_running')
-    set guifont=Fixed\ 11
-endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 6. Function definitions
+" Function definitions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! VarExists(var, val)
   if exists(a:var) | return a:val | else | return '' | endif
 endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 7. ViM Mappings
+" ViM Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""
 
 " set map leader
 let mapleader = ","
 let g:mapleader = ','
 
-"" buffers and split windows
+" Buffers
 nmap        <Leader>1   :enew<CR>
 nmap        <Leader>2   :e 
+" Split windows
 nmap        <Leader>3   :vnew<CR>
 nmap        <Leader>4   :vnew 
 
-"" Move through tabs and windows
+" Move through tabs
 nnoremap    <Tab>       <C-w>w
+" Move through buffers
 map         <C-Left>    <ESC>:bp<CR>
 map         <C-Right>   <ESC>:bn<CR>
 imap        <C-Left>    <ESC><C-Left>
 imap        <C-Right>   <ESC><C-Right>
 
-"" Forced commands
+" Forced save/quit
 nmap        <Leader>w   :w!<CR>
 nmap        <Leader>q   :q!<CR>
 
-" indent file
+" Indent file
 map         <Leader>i   <ESC>gg=G
 
-"" Function keys
-nmap        <F2>        :NERDTreeTabsToggle<CR>
-imap        <F2>        <ESC><F2>
-
-""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Versioning Systems plugins' options
-""
-
-if has("vms")
-  set nobackup
-else
-  set backup
-endif
-
-""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"" Latex
-"" TODO reorganize vimrc
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor = "xelatex"
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-
-if &term =~ '^screen'
-    " tmux will send xterm-style keys when its xterm-keys option is on
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
-endif
-
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
+" Change system includes to local includes (C/C++)
 nnoremap <leader>cli :.s/#include [<"]\([^">]\+\)[">]/#include "\1"/<cr>
-nnoremap <leader>csi :.s/#include [<"]\([^">]\+\)[">]/#include <\1>/<cr>
-
 vnoremap cli :s/\%V#include [<"]\([^">]\+\)[">]/#include "\1"/\|'<,'>sort u<cr>
+
+" Change local includes to a system includes (C/C++)
+nnoremap <leader>csi :.s/#include [<"]\([^">]\+\)[">]/#include <\1>/<cr>
 vnoremap csi :s/\%V#include [<"]\([^">]\+\)[">]/#include <\1>/\|'<,'>sort u<cr>
-vnoremap sc :s/\%V\/\/.*$//<cr>
 
-augroup filetype_html
-    autocmd!
-    autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
-augroup END
+" Strip comments from selected lines
+vnoremap sc :s/\%V\s*\/\/.*$//<cr>
 
-onoremap in@ :<c-u>execute "normal! /[a-zA-Z0-9.]\\+@[a-zA-Z0-9.]\\+\rv//e\r"<cr>
-
-augroup filetype_markdown
-    autocmd!
-    autocmd FileType mkd onoremap ih :<c-u>execute "normal! ?^[-=]\\{2,}$\r:nohlsearch\rkvg_"<cr>
-    autocmd FileType mkd onoremap ah :<c-u>execute "normal! ?^[-=]\\{2,}$\r:nohlsearch\rg_vk0"<cr>
-augroup END
-
-let g:UltiSnipsExpandTrigger="``"
-let g:UltiSnipsJumpForwardTrigger="<PageDown>"
-let g:UltiSnipsJumpBackwardTrigger="<PageUp>"
-
-let g:UltiSnipsEditSplit="normal"
-
-set diffopt+=iwhite
-
-set diffexpr=""
-
-if exists('g:loaded_workrc')
-    finish
-endif
-let g:loaded_workrc = 1
-
-for file in split(glob('~/.work_env/*.vimrc'), '\n')
-    exe 'source' file
-endfor
