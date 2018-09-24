@@ -25,3 +25,5 @@
     path = nvim
 [mergetool "vimdiff"]
     path = nvim
+[user]
+    useConfigOnly = true
