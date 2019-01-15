@@ -12,7 +12,7 @@ if which nvim > /dev/null; then
     make_link "vimrc" "${HOME}/.vimrc"
     make_zshrcd_link "vim.zsh.source"
 
-    vim '+call dein#install()' +qall
+    nvim '+call dein#install()' +qall
 else
     debug_print "vim is not installed. Skipping vim files."
 fi

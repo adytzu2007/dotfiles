@@ -23,6 +23,9 @@ packages["ubuntu,gvim"]="vim-gnome"
 packages["ubuntu,meld"]="meld"
 packages["ubuntu,tmux"]="tmux"
 packages["ubuntu,zsh"]="zsh"
+packages["ubuntu,neovim"]="neovim"
+packages["ubuntu,python-neovim"]="neovim"
+packages["ubuntu,python2-neovim"]="neovim"
 
 
 function install_package
