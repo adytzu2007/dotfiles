@@ -4,3 +4,6 @@
 [submodule "install/002-vim/dein/repos/github.com/Shougo/dein.vim"]
 	path = install/002-vim/dein/repos/github.com/Shougo/dein.vim
 	url = https://github.com/Shougo/dein.vim.git
+[submodule "install/004-tmux/tpm"]
+	path = install/004-tmux/tpm
+	url = https://github.com/tmux-plugins/tpm
