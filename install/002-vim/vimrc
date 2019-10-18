@@ -42,10 +42,18 @@ if dein#load_state('~/.vim/dein')
     " Syntax highlighting
     call dein#add('zah/nim.vim')
 
+    " Code formatting
+    call dein#add('google/vim-maktaba')
+    call dein#add('google/vim-codefmt', {'merged': 0})
+    call dein#add('google/vim-glaive')
+
     " Required:
     call dein#end()
     call dein#save_state()
 endif
+
+call glaive#Install()
+Glaive codefmt plugin[mappings]
 
 " Required:
 filetype plugin indent on
