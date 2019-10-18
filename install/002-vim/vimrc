@@ -270,3 +270,9 @@ vnoremap csi :s/\%V#include [<"]\([^">]\+\)[">]/#include <\1>/\|'<,'>sort u<cr>
 " Strip comments from selected lines
 vnoremap sc :s/\%V\s*\/\/.*$//<cr>
 
+" Git specific configuration
+let git_path = system("git rev-parse --show-toplevel 2>/dev/null")
+let git_vimrc = substitute(git_path, '\n', '', '') . "/.vimrc"
+if !empty(glob(git_vimrc))
+    sandbox exec ":source " . git_vimrc
+endif
