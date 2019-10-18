@@ -164,9 +164,9 @@ let g:lightline = {
         \ }
     \ }
 
-" Highlight characters that go over 80 columns
+" Highlight characters that go over 100 columns
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%88v.\+/
+match OverLength /\%101v.\+/
 
 " Highlight trailing shitespace
 highlight ExtraWhitespace ctermbg=red ctermfg=white guibg=#592929
