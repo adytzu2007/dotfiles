@@ -31,18 +31,33 @@ alias gx='gitx --all'
 ###########################################################################
 
 #
-# gitopened - view all changed files by a commit
+# gitopened - view all changed files
 #
 # if no commit is provided, view all changed files
 # since master
+# if one commit is provided, view all changed files
+# in that commit
+# if two commits are provided, view all changed files
+# between the 2 commits
 #
 gitopened() {
-    if [[ $# -gt 0 ]]; then
+    if [[ $# -eq 1 ]]; then
         COMMIT="$1^..$1"
+    elif [[ $# -eq 2 ]]; then
+        COMMIT="$1..$2"
     else
-        COMMIT="master"
+        COMMIT="master..HEAD"
     fi
 
     git --no-pager diff --name-only ${COMMIT}
+}
+
+#
+# gitcf - apply clang-format to all files changed
+#
+gitcf() {
+  for f in $(gitopened $@ | egrep "\.(c|cc|h)$"); do
+    clang-format -i $(git rev-parse --show-toplevel)/$f
+  done
 }
 
