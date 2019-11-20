@@ -12,7 +12,7 @@ if which zsh > /dev/null; then
         if [[ "${answer}" = "yes" ]]; then
             debug_print "Changing default shell to zsh"
             zsh_full_path=$(get_full_path "zsh")
-            chsh -s ${zsh_full_path}
+            sudo chsh -s ${zsh_full_path} $(id -u -n)
         fi
     fi
     make_link "oh-my-zsh" "${HOME}/.oh-my-zsh"
