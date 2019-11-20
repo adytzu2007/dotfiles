@@ -43,7 +43,7 @@ if dein#load_state('~/.vim/dein')
     call dein#add('zah/nim.vim')
 
     " Code formatting
-    call dein#add('google/vim-maktaba')
+    call dein#add('google/vim-maktaba', {'merged': 0})
     call dein#add('google/vim-codefmt', {'merged': 0})
     call dein#add('google/vim-glaive')
 
