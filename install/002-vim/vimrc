@@ -52,7 +52,11 @@ if dein#load_state('~/.vim/dein')
     call dein#save_state()
 endif
 
-call glaive#Install()
+try
+    call glaive#Install()
+catch
+    finish "plugins are not installed yet
+endtry
 Glaive codefmt plugin[mappings]
 
 " Required:
