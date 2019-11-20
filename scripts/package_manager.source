@@ -27,6 +27,15 @@ packages["ubuntu,neovim"]="neovim"
 packages["ubuntu,python-neovim"]="neovim"
 packages["ubuntu,python2-neovim"]="neovim"
 
+function update_packages
+{
+    distro=$(get_distro)
+    if [[ "$distro" = "archlinux" ]]; then
+        sudo pacman -Syu
+    elif [[ "$distro" = "ubuntu" ]]; then
+        sudo apt-get update
+    fi
+}
 
 function install_package
 {

@@ -12,12 +12,13 @@ DOTFILES_DIR="$(readlink -f $(dirname $0))"
 SCRIPTS_DIR=${DOTFILES_DIR}/scripts
 INSTALL_DIR=${DOTFILES_DIR}/install
 
-git submodule init
-git submodule update
+git submodule update --init --recursive
 
 source ${SCRIPTS_DIR}/base.source
 source ${SCRIPTS_DIR}/package_manager.source
 debug_on
+
+update_packages
 
 for package in ${INSTALL_DIR}/*; do
     if [[ -f ${package}/install.source ]]; then
