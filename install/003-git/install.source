@@ -2,8 +2,6 @@
 # git
 # we assume this is installed
 
-install_package "meld"
-
 make_link "gitignore" "${HOME}/.config/git/ignore"
-make_link "gitconfig" "${HOME}/.config/git/config"
+make_link "gitconfig" "${HOME}/.gitconfig"
 make_zshrcd_link "git.zsh.source"

@@ -32,6 +32,9 @@ fi
 
 . $ZSH/oh-my-zsh.sh
 
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
+
 zstyle ':completion:*' hosts off
 zstyle ':completion:*' accounts off
 zstyle ':completion:*' my-accounts off
