@@ -30,7 +30,7 @@ if dein#load_state('~/.vim/dein')
 
     " Let dein manage dein
     " Required:
-    call dein#add('~/.dein/repos/github.com/Shougo/dein.vim')
+    call dein#add('~/.vim/dein/repos/github.com/Shougo/dein.vim')
 
     call dein#add('ap/vim-buftabline')
 
@@ -52,11 +52,11 @@ if dein#load_state('~/.vim/dein')
     call dein#save_state()
 endif
 
-try
-    call glaive#Install()
-catch
+if dein#check_install()
     finish "plugins are not installed yet
-endtry
+endif
+
+call glaive#Install()
 Glaive codefmt plugin[mappings]
 
 " Required:
