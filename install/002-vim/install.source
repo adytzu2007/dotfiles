@@ -3,6 +3,7 @@
 
 install_package "neovim"
 install_package "python-neovim"
+install_package "nodejs"
 
 if which nvim > /dev/null; then
     make_link "vim" "${HOME}/.vim"

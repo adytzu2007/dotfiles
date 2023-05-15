@@ -1,0 +1,22 @@
+clearsnippets
+snippet parser "Add a new argument parser"
+parser = argparse.ArgumentParser(
+  description='$1',
+  epilog='$2',
+  formatter_class=argparse.RawDescriptionHelpFormatter)
+endsnippet
+
+snippet argument "Add an argument to the parser"
+$1.add_argument('$2',
+  type=$3,
+  help='$4',
+  default='$5',
+  required=$6)
+endsnippet
+
+snippet flag "Add a flag argument to the parser"
+$1.add_argument('$2',
+  help='$3',
+  action='store_true',
+  default=False)
+endsnippet

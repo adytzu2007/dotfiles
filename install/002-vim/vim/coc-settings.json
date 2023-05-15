@@ -1,0 +1,4 @@
+{
+  "clangd.arguments": ["--background-index=1", "--log=info", "--pretty"],
+  "python.formatting.provider": "yapf"
+}
