@@ -107,3 +107,31 @@ function make_link
 
     return 0
 }
+
+function copy
+{
+    if [[ $# -ne 2 ]]; then
+        debug_print "Invalid invocation of make_link"
+        return 1
+    fi
+
+    src=${PACKAGE_DIR}/$1
+    dst=$2
+
+    if [[ -d ${src} ]] && [[ -d ${dst} ]]; then
+        echo "Destination already exists."
+        answer=$(prompt_user \
+            "Are you sure you want to overwrite? (yes/no)" \
+            "yes")
+        if [[ ${answer} != "yes" ]]; then
+            return 1
+        fi
+        dst=$(dirname ${dst})
+    fi
+
+    debug_print "Copying ${src} to ${dst}"
+    mkdir -p $(dirname ${dst})
+    cp -r ${src} ${dst}
+
+    return 0
+}

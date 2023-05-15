@@ -1,15 +1,14 @@
 # vim: filetype=sh
 # vim
 
-install_package "gvim"
 install_package "neovim"
 install_package "python-neovim"
-install_package "python2-neovim"
 
 if which nvim > /dev/null; then
-    make_link "." "${HOME}/.vim"
-    make_link "." "${HOME}/.config/nvim"
-    make_link "vimrc" "${HOME}/.vimrc"
+    make_link "vim" "${HOME}/.vim"
+    make_link "vim" "${HOME}/.config/nvim"
+    make_link "vim/vimrc" "${HOME}/.vimrc"
+    copy "dein" "${HOME}/.cache/dein"
     make_zshrcd_link "vim.zsh.source"
 
     nvim '+call dein#install()' +qall

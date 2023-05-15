@@ -1,29 +1,47 @@
 [color]
-    diff = auto
+  diff = auto
 [merge]
-    tool = vimdiff
+  tool = vimdiff
 [mergetool]
-    prompt = false
+  prompt = false
 [diff]
-    tool = vimdiff
+  tool = kitty
+  guitool = kitty.gui
 [difftool]
-    prompt = false
+  prompt = false
 [oh-my-zsh]
-    hide-status = 1
+  hide-status = 1
 [core]
-    preloadindex = true
-    fscache = true
-    autocrlf = false
-    filemode = false
+  preloadindex = true
+  fscache = true
+  autocrlf = false
+  filemode = false
 [branch]
-    autosetuprebase = always
+  autosetuprebase = always
 [push]
-    default = simple
+  default = simple
 [status]
-    showUntrackedFiles = no
+  showUntrackedFiles = no
 [difftool "vimdiff"]
-    path = nvim
+  path = nvim
 [mergetool "vimdiff"]
-    path = nvim
+  path = nvim
+[difftool "kitty"]
+  cmd = kitty +kitten diff $LOCAL $REMOTE
+[difftool "kitty.gui"]
+  cmd = kitty kitty +kitten diff $LOCAL $REMOTE
 [user]
-    useConfigOnly = true
+  useConfigOnly = true
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[init]
+	defaultBranch = main
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential

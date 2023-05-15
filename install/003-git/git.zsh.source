@@ -56,7 +56,8 @@ gitopened() {
 # gitcf - apply clang-format to all files changed
 #
 gitcf() {
-  for f in $(gitopened $@ | egrep "\.(c|cc|h)$"); do
+  for f in $(gitopened $@ | egrep "\.(c|cc|h|cpp|hpp)$"); do
+    echo "Formatting $(git rev-parse --show-toplevel)/$f"
     clang-format -i $(git rev-parse --show-toplevel)/$f
   done
 }
